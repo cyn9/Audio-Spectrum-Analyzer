@@ -60,7 +60,7 @@ class MainWindow(QtWidgets.QMainWindow):
         pg.setConfigOptions(antialias = True)
 
         # Load the UI Page
-        uic.loadUi("/Users/ciyan/Box/Programming/Python/Audio-Analyzer-v5/ui/MainWindow.ui", self)
+        uic.loadUi("/Users/ciyan/Documents/Audio-Spectrum-Analyzer/ui/MainWindow.ui", self)
         self.setFixedSize(SCR_WIDTH, SCR_HEIGHT)
 
         # Exit app menu item onClick event
