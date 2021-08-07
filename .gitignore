@@ -12,13 +12,15 @@
 
 # VSCode:
 .vscode/
+.vscode
+
+.DS_Store
 
 # Ignore Python related:
 *.pyc
 *.pyo
 
-
-*.DS_Store
 .DS_Store
+
 **/library.properties
 library.properties
