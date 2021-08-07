@@ -17,5 +17,8 @@
 *.pyc
 *.pyo
 
-# DS Store
+
 *.DS_Store
+.DS_Store
+**/library.properties
+library.properties
