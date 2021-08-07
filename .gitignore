@@ -24,3 +24,5 @@
 
 **/library.properties
 library.properties
+
+src/__pycache__
