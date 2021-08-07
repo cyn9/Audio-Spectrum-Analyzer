@@ -16,3 +16,6 @@
 # Ignore Python related:
 *.pyc
 *.pyo
+
+# DS Store
+*.DS_Store
