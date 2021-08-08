@@ -56,7 +56,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Screen width and height properties overriding
         # QtDesigner values
         SCR_WIDTH = 908
-        SCR_HEIGHT = 810
+        SCR_HEIGHT = 790
 
         super(MainWindow, self).__init__(*args, **kwargs)
         pg.setConfigOptions(antialias = True)
