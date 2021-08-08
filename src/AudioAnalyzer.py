@@ -3,6 +3,7 @@ Following features will be implemented:
 (1) Dynamic range compression
 (2) Limiter
 (3) Noise reduction
+(4) Timestamp in status window and saving log files.
 '''
 
 from pyqtgraph.Qt import QtGui
@@ -25,6 +26,7 @@ from datetime import datetime
 from HelpWindow import HelpWindow
 from Filtering import *
 from Windowing import *
+from DeviceInfo import *
 
 import platform
 import numpy as np
@@ -177,6 +179,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.RATE = 44100
 
         self.p = pyaudio.PyAudio()
+
+        # Get audio device and PyAudio related info
+        getDeviceInfo(self.txt_Status, self.p)
 
         self.chosen_device_index = -1
         for x in range(0, self.p.get_device_count()):
