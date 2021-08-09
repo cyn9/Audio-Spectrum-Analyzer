@@ -48,10 +48,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # Some constants
         TD_MIN_X_RANGE = 0
         TD_MAX_X_RANGE = 2**12
-        TD_WF_MIN_YVAL = -8000
-        TD_WF_MAX_YVAL = 8000
-        TD_WF_YMIN = -2**13
-        TD_WF_YMAX = 2**13
+        TD_WF_MIN_YVAL = -16000
+        TD_WF_MAX_YVAL = 16000
+        TD_WF_YMIN = -2**14
+        TD_WF_YMAX = 2**14
 
         # Screen width and height properties overriding
         # QtDesigner values
@@ -152,7 +152,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.graphWidget_FreqDomain.getAxis("left").setStyle(tickFont = self.pyGraphFont)
 
         td_wf_xticks = [0, 2048, 4096]
-        td_wf_yticks = [-8000, 0, 8000]
+        td_wf_yticks = [-16000, 0, 16000]
         td_wf_xaxis = self.graphWidget_TimeDomain.getAxis('bottom')
         td_wf_yaxis = self.graphWidget_TimeDomain.getAxis('left')
         td_wf_xaxis.setTicks([[(v, str(v)) for v in td_wf_xticks]])
@@ -226,6 +226,10 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.traces[name] = self.graphWidget_TimeDomain.plot(pen = pg.mkPen('r', width = 5))
                 self.graphWidget_TimeDomain.setXRange(min = 0,
                                                       max = 2 * self.CHUNK,
+                                                      padding = 0.5,
+                                                      update = True)
+                self.graphWidget_TimeDomain.setYRange(min = -16000, 
+                                                      max = 16000,
                                                       padding = 0.5,
                                                       update = True)
                                                       
