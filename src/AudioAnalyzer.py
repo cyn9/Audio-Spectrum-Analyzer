@@ -284,9 +284,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def update(self):
+        # Amplitude factor (default = 1)
+        attenuation = tuple([1] * self.CHUNK)
+
         # Get time-domain data (audio stream)
         td_data = self.stream.read(self.CHUNK, exception_on_overflow = False)
         data_int = struct.unpack(str(self.CHUNK) + 'h', td_data)
+    
+        # Tuple multiplication for obtanining attenuated data_int stream.
+        data_int = tuple(e1 * e2 for e1, e2 in zip(attenuation, data_int))
+
         self.setPlotData(name = 'waveform',
                          data_x = self.x,
                          data_y = data_int)
