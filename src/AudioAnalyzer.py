@@ -27,6 +27,7 @@ from HelpWindow import HelpWindow
 from Filtering import *
 from Windowing import *
 from DeviceInfo import *
+from Log import *
 
 import platform
 import numpy as np
@@ -924,9 +925,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def exitProgram(self, event):
         quitMessage = "Are you sure you want to exit the program?"
 
-        reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+        reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, 
+                                                                               QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
+            saveLog(self.txt_Status)
             print("Program exited successfully...")
             sys.exit()
     
@@ -966,9 +969,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def exitMenuButtonOnClick(self):
         quitMessage = "Are you sure you want to exit the program?"
 
-        reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+        reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, 
+                                                                               QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
+            saveLog(self.txt_Status)
             print("Program exited successfully...")
             qApp.quit()
 
@@ -976,7 +981,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         quitMessage = "Are you sure you want to exit the program?"
 
-        reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+        reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, 
+                                                                               QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
             try:
@@ -984,6 +990,7 @@ class MainWindow(QtWidgets.QMainWindow):
             except AttributeError:
                 print("Ignoring AttributeError...")
 
+            saveLog(self.txt_Status)
             print("Program exited successfully...")
 
             event.accept()
