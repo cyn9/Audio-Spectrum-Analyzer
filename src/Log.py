@@ -6,10 +6,10 @@ import os
 def saveLog(statusText):
     date = datetime.now()
 
-    if not os.path.exists('logfiles'):
-        os.makedirs('logfiles')
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
 
-    filename_log = date.strftime('logfiles/%Y-%m-%d_%H-%M-%S-Log.txt')
+    filename_log = date.strftime('logs/%Y-%m-%d_%H-%M-%S-Log.txt')
 
     f = open(filename_log, "x")
     f.write(statusText.toPlainText())
