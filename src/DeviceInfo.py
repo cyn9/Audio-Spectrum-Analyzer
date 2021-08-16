@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QStyle
 
 import pyaudio
 
+# Standard audio sample rates:
 std_sample_rates = [8000.0, 9600.0, 11025.0, 12000.0,
                     16000.0, 22050.0, 24000.0, 32000.0,
                     44100.0, 48000.0, 88200.0, 96000.0,
@@ -144,7 +145,7 @@ def getDeviceInfo(statusText, pInst):
             if name == 'hostApi':
                 value = str(value) + \
                         " (%s)" % pInst.get_host_api_info_by_index(k[1])['name']
-            statusText.append("\t%s: %s" % (name, value))
+            statusText.append("  %s: %s" % (name, value))
         statusText.append("--------------------------------")
     
     except IOError as e:
