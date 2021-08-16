@@ -43,7 +43,14 @@ cmd_args = parser.parse_args()
 def main(argmode):
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
-    main = MainWindow()
+
+    cmd_args_dict = vars(cmd_args)
+    arg_quiet = cmd_args_dict['quiet']
+    arg_verbose = cmd_args_dict['verbose']
+    args_list = [arg_quiet, arg_verbose]
+    # print(args_list)
+
+    main = MainWindow(cmd_args = args_list)
     main.show()
 
     # Welcome message:
@@ -74,6 +81,7 @@ if __name__ == '__main__':
         else:
             argmode = 'quiet'
             print("Nothing is selected.")
+            cmd_args.quiet = True
         
         main(argmode)
 

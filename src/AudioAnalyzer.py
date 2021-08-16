@@ -39,13 +39,17 @@ import struct
 import sys
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, *args, **kwargs):
+    # def __init__(self, *args, **kwargs):
+    def __init__(self, cmd_args, *args, **kwargs):
         # Platform check for MacOS
         # Somehow there is a problem with the Tk backend.
         self.opSystem = platform.system()
         if self.opSystem == "Darwin":
             mpl.use('Qt5Agg')
-        
+
+        self.arg_quiet = cmd_args[0]
+        self.arg_verbose = cmd_args[1]
+
         # Some constants
         TD_MIN_X_RANGE = 0
         TD_MAX_X_RANGE = 2**12
@@ -364,7 +368,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # value. Later on, this will probably be used to decide if the motor
         # is running or not depending on the frequency at which it generates
         # a single tone.
-        if 20 < self.maxValFreq < 20000:
+        if (20 < self.maxValFreq < 20000) and (self.arg_verbose):
             print(f"Frequency: {int(self.maxValFreq)} Hz.")
             freqVal = self.maxValFreq
             self.statusText = "<b>Frequency:</b> {num:.2f} Hz."
