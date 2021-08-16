@@ -71,7 +71,7 @@ def main():
 
 if __name__ == '__main__':
     if float(sys.version_info[0]) < 3.0:
-        raise Exception("Must be using Python 3")
+        raise Exception("Must be using Python 3 or newer.")
 
     if (len(sys.argv) > 1):
         if cmd_args.quiet:
