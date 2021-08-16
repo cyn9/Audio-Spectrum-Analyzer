@@ -59,7 +59,7 @@ def main():
     welcomeMsg = QMessageBox()
     welcomeMsg.setWindowTitle("Hi!")
     welcomeMsg.setIcon(QMessageBox.Information)
-    welcomeMsg.setText('Welcome to Real-Time Audio Analyzer. Please refer to <br> "Help" section for further information. Press OK to start.')
+    welcomeMsg.setText('Welcome to Real-Time Audio Analyzer. Please refer to "Help" section for further information. Press OK to start.')
     welcomeMsg.setWindowIcon(QtGui.QIcon(welcomeMsgStyle.standardIcon(QStyle.SP_DialogApplyButton)))
     welcomeMsg.exec_()
 
