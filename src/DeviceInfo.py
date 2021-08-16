@@ -92,13 +92,13 @@ def getDeviceInfo(statusText, pInst):
                     pass
             
         if len(inputSupportedRates):
-            statusText.append("\tInput rates: {inputSupportedRates}")
+            statusText.append("  Input rates: {inputSupportedRates}")
 
         if len(outputSupportedRates):
-            statusText.append("\Output rates: {outputSupportedRates}")
+            statusText.append("  Output rates: {outputSupportedRates}")
 
         if len(fullDuplexRates):
-            statusText.append("\Full duplex rates: {fullDuplexRates}")
+            statusText.append("  Full duplex rates: {fullDuplexRates}")
 
     
     # Default device info:
@@ -145,11 +145,11 @@ def getDeviceInfo(statusText, pInst):
                 value = str(value) + \
                         " (%s)" % pInst.get_host_api_info_by_index(k[1])['name']
             statusText.append("\t%s: %s" % (name, value))
-        statusText.append("\t--------------------------------")
+        statusText.append("--------------------------------")
     
     except IOError as e:
         errorFlag = e[0]
-        statusText.append("No input devices found: {errorFlag}.")
+        statusText.append(f"No input devices found: {errorFlag}.")
 
         errorMsg = QMessageBox()
         errorMsg.setWindowTitle("Input Device Warning")
