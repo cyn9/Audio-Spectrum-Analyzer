@@ -47,8 +47,14 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.opSystem == "Darwin":
             mpl.use('Qt5Agg')
 
-        self.arg_quiet = cmd_args[0]
+        self.arg_quiet   = cmd_args[0]
         self.arg_verbose = cmd_args[1]
+        self.arg_nologs  = cmd_args[2]
+
+        # print(f"Arguments passed:")
+        # print(f"Quiet   : {self.arg_quiet}")
+        # print(f"Verbose : {self.arg_verbose}")
+        # print(f"No Logs : {self.arg_nologs}")
 
         # Some constants
         TD_MIN_X_RANGE = 0
@@ -940,7 +946,9 @@ class MainWindow(QtWidgets.QMainWindow):
                                                                                QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
-            saveLog(self.txt_Status)
+            if not self.arg_nologs:
+                saveLog(self.txt_Status)
+                
             print("Program exited successfully...")
             sys.exit()
     
@@ -984,7 +992,9 @@ class MainWindow(QtWidgets.QMainWindow):
                                                                                QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
-            saveLog(self.txt_Status)
+            if not self.arg_nologs:
+                saveLog(self.txt_Status)
+            
             print("Program exited successfully...")
             qApp.quit()
 
@@ -1001,7 +1011,9 @@ class MainWindow(QtWidgets.QMainWindow):
             except AttributeError:
                 print("Ignoring AttributeError...")
 
-            saveLog(self.txt_Status)
+            if not self.arg_nologs:
+                saveLog(self.txt_Status)
+            
             print("Program exited successfully...")
 
             event.accept()

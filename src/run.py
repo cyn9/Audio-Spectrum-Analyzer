@@ -37,6 +37,7 @@ parser = argparse.ArgumentParser(prog = 'Audio Analyzer',
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-q', '--quiet', action = 'store_true', help = 'Print quiet.')
 group.add_argument('-v', '--verbose', action = 'store_true', help = 'Print verbose.')
+group.add_argument('-n', '--no-log-output', action = 'store_true', help = 'No log output.')
 
 cmd_args = parser.parse_args()
 
@@ -47,7 +48,8 @@ def main(argmode):
     cmd_args_dict = vars(cmd_args)
     arg_quiet = cmd_args_dict['quiet']
     arg_verbose = cmd_args_dict['verbose']
-    args_list = [arg_quiet, arg_verbose]
+    arg_nologs = cmd_args_dict['no_log_output']
+    args_list = [arg_quiet, arg_verbose, arg_nologs]
     # print(args_list)
 
     main = MainWindow(cmd_args = args_list)
@@ -72,7 +74,6 @@ if __name__ == '__main__':
     if (len(sys.argv) > 1):
         if cmd_args.quiet:
             argmode = 'quiet'
-            print("Quiet is selected.")
 
         elif cmd_args.verbose:
             argmode = 'verbose'
@@ -80,7 +81,6 @@ if __name__ == '__main__':
 
         else:
             argmode = 'quiet'
-            print("Nothing is selected.")
             cmd_args.quiet = True
         
         main(argmode)
@@ -88,6 +88,5 @@ if __name__ == '__main__':
     # No-args, just run the program in 'quiet' as default.
     else:
         argmode = 'quiet'
-        print("Quiet is selected.")
         main(argmode)
         cmd_args.quiet = True
