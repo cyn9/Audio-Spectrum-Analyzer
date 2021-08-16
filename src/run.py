@@ -41,7 +41,7 @@ group.add_argument('-n', '--no-log-output', action = 'store_true', help = 'No lo
 
 cmd_args = parser.parse_args()
 
-def main(argmode):
+def main():
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
 
@@ -50,7 +50,6 @@ def main(argmode):
     arg_verbose = cmd_args_dict['verbose']
     arg_nologs = cmd_args_dict['no_log_output']
     args_list = [arg_quiet, arg_verbose, arg_nologs]
-    # print(args_list)
 
     main = MainWindow(cmd_args = args_list)
     main.show()
@@ -71,22 +70,21 @@ def main(argmode):
 
 
 if __name__ == '__main__':
+    if float(sys.version_info[0]) < 3.0:
+        raise Exception("Must be using Python 3")
+
     if (len(sys.argv) > 1):
         if cmd_args.quiet:
-            argmode = 'quiet'
+            cmd_args.quiet = True
 
         elif cmd_args.verbose:
-            argmode = 'verbose'
-            print("Verbose is selected.")
+            cmd_args.verbose = True
 
         else:
-            argmode = 'quiet'
             cmd_args.quiet = True
         
-        main(argmode)
+        main()
 
     # No-args, just run the program in 'quiet' as default.
     else:
-        argmode = 'quiet'
-        main(argmode)
         cmd_args.quiet = True
