@@ -91,7 +91,7 @@
          <rect>
           <x>0</x>
           <y>60</y>
-          <width>281</width>
+          <width>286</width>
           <height>238</height>
          </rect>
         </property>
@@ -416,6 +416,12 @@
           <width>371</width>
           <height>211</height>
          </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
         <property name="font">
          <font>
