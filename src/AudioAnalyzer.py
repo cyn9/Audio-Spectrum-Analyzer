@@ -37,7 +37,6 @@ import matplotlib.pyplot as plt
 import pyaudio
 import struct
 import sys
-import time
 
 class MainWindow(QtWidgets.QMainWindow):
     # def __init__(self, *args, **kwargs):
@@ -194,14 +193,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Get audio device and PyAudio related info
         getDeviceInfo(self.txt_Status, self.p)
-        self.txt_Status.moveCursor(QtGui.QTextCursor.End)
-        self.txt_Status.ensureCursorVisible()
-        self.scrollbar = self.txt_Status.verticalScrollBar()
-        try:
-            time.sleep(0.1)
-            self.scrollbar.setValue(10000)
-        except:
-            pass
 
         self.chosen_device_index = -1
         for x in range(0, self.p.get_device_count()):
