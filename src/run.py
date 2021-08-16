@@ -90,3 +90,4 @@ if __name__ == '__main__':
         argmode = 'quiet'
         print("Quiet is selected.")
         main(argmode)
+        cmd_args.quiet = True
