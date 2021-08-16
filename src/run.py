@@ -65,7 +65,7 @@ def main():
 
     # Start animation for real-time plotting.
     main.animation()
-    
+
     # sys.exit(app.exec_())
 
 
@@ -83,8 +83,8 @@ if __name__ == '__main__':
         else:
             cmd_args.quiet = True
         
-        main()
-
     # No-args, just run the program in 'quiet' as default.
     else:
         cmd_args.quiet = True
+    
+    main()

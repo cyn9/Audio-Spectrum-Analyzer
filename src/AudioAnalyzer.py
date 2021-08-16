@@ -37,20 +37,26 @@ import matplotlib.pyplot as plt
 import pyaudio
 import struct
 import sys
+import time
 
 class MainWindow(QtWidgets.QMainWindow):
     # def __init__(self, *args, **kwargs):
     def __init__(self, cmd_args, *args, **kwargs):
+        # Command-line arguments as list elements
+        self.arg_quiet   = cmd_args[0]
+        self.arg_verbose = cmd_args[1]
+        self.arg_nologs  = cmd_args[2]
+
+        if self.arg_verbose:
+            self.startTime = time.time()
+
         # Platform check for MacOS
         # Somehow there is a problem with the Tk backend.
         self.opSystem = platform.system()
         if self.opSystem == "Darwin":
             mpl.use('Qt5Agg')
 
-        self.arg_quiet   = cmd_args[0]
-        self.arg_verbose = cmd_args[1]
-        self.arg_nologs  = cmd_args[2]
-
+        # Debugging the correct values of CMD line arguments:
         # print(f"Arguments passed:")
         # print(f"Quiet   : {self.arg_quiet}")
         # print(f"Verbose : {self.arg_verbose}")
@@ -948,7 +954,11 @@ class MainWindow(QtWidgets.QMainWindow):
         if reply == QtGui.QMessageBox.Yes:
             if not self.arg_nologs:
                 saveLog(self.txt_Status)
-                
+
+            if self.arg_verbose:
+                self.elapsedTime = time.time() - self.startTime
+                print(f"Program runtime is {self.elapsedTime:.2f} seconds.")    
+            
             print("Program exited successfully...")
             sys.exit()
     
