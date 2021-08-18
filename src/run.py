@@ -18,6 +18,20 @@ import sys
 import argparse
 import textwrap
 
+# Argument boolean parse for --no-log-output
+# string to boolean conversion: 
+def strToBool(v):
+    if isinstance(v, bool):
+        return v
+    
+    if v.lower() in ('yes', 'true', 't', 'y', '1', ' '):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError("Boolean value expected...") 
+
+
 parserDescription = textwrap.dedent('''\
 -----------------------------
 Audio Signal Analyzer:
@@ -34,12 +48,20 @@ parser = argparse.ArgumentParser(prog = 'Audio Analyzer',
                                  formatter_class = argparse.RawDescriptionHelpFormatter,
                                  description = parserDescription)
 
+parser.add_argument('-n', '--no-log-output',
+                    type = strToBool,
+                    nargs = '?',
+                    const = True,
+                    default = False,
+                    metavar = '',
+                    help = 'Do not save log file.')
+
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-q', '--quiet', action = 'store_true', help = 'Print quiet.')
 group.add_argument('-v', '--verbose', action = 'store_true', help = 'Print verbose.')
-group.add_argument('-n', '--no-log-output', action = 'store_true', help = 'No log output.')
 
 cmd_args = parser.parse_args()
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

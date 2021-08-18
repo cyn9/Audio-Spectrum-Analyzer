@@ -47,6 +47,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.arg_verbose = cmd_args[1]
         self.arg_nologs  = cmd_args[2]
 
+        # When only -n or --no-log-output is specified, 
+        # argparse passes None because of string-to-bool
+        # conversion. Change None to true:
+        if self.arg_nologs is None:
+            self.arg_nologs = True
+
         if self.arg_verbose:
             self.startTime = time.time()
 
