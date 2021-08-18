@@ -18,7 +18,7 @@ import sys
 import argparse
 import textwrap
 
-# Argument boolean parse for --no-log-output
+# Argument boolean parse for --no-log-save
 # string to boolean conversion: 
 def strToBool(v):
     if isinstance(v, bool):
@@ -47,7 +47,7 @@ parser = argparse.ArgumentParser(prog = 'Audio Analyzer',
                                  formatter_class = argparse.RawDescriptionHelpFormatter,
                                  description = parserDescription)
 
-parser.add_argument('-n', '--no-log-output',
+parser.add_argument('-n', '--no-log-save',
                     type = strToBool,
                     nargs = '?',
                     const = True,
@@ -69,7 +69,7 @@ def main():
     cmd_args_dict = vars(cmd_args)
     arg_quiet = cmd_args_dict['quiet']
     arg_verbose = cmd_args_dict['verbose']
-    arg_nologs = cmd_args_dict['no_log_output']
+    arg_nologs = cmd_args_dict['no_log_save']
     args_list = [arg_quiet, arg_verbose, arg_nologs]
 
     main = MainWindow(cmd_args = args_list)
