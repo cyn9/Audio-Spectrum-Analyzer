@@ -1,8 +1,8 @@
 '''
     @ author        cico
     @ version       5.0
-    @ date          08/16/21
-    @ time          1:32 PM
+    @ date          08/18/21
+    @ time          2:53 PM
     @ description   Real-time audio signal analyzer
 '''
 
@@ -23,7 +23,6 @@ import textwrap
 def strToBool(v):
     if isinstance(v, bool):
         return v
-    
     if v.lower() in ('yes', 'true', 't', 'y', '1', ' '):
         return True
     elif v.lower() in ('no', 'false', 'f', 'n', '0'):
