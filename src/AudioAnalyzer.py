@@ -77,9 +77,9 @@ class MainWindow(QtWidgets.QMainWindow):
         TD_WF_YMAX = 2**14
 
         # Screen width and height properties overriding
-        # QtDesigner values
+        # QtDesigner values - final values for fixing the menubar
         SCR_WIDTH = 908
-        SCR_HEIGHT = 790
+        SCR_HEIGHT = 807
 
         super(MainWindow, self).__init__(*args, **kwargs)
         pg.setConfigOptions(antialias = True)
@@ -145,6 +145,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Traces dictionary as storing plot data names
         self.traces = dict()
+
+        # Native menubar flag set as false to show actual menubar
+        self.menubar.setNativeMenuBar(False)
 
         # Graph widget properties
         self.graphWidget_TimeDomain.setLabels(title = '<b><font face="Arial" style="color:white">WAVEFORM</font></b>')
