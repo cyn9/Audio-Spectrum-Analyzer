@@ -15,7 +15,15 @@ def saveLog(statusText, fname):
     if fname is None:
         filename_log = date.strftime('logs/%Y-%m-%d_%H-%M-%S-Log.txt')
     else:
-        filename_log = 'logs/' + fname + '.txt'
+        # First check if the user has specified the file extension
+        # if yes, do not add "".txt"
+        file_extension = '.txt'
+        filename_log = 'logs/' + fname
+
+        if not file_extension in fname:
+            filename_log += file_extension
+            print(filename_log)
+
 
     f = open(filename_log, "x")
     f.write(statusText.toPlainText())
