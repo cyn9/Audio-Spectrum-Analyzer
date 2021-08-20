@@ -46,6 +46,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.arg_quiet   = cmd_args[0]
         self.arg_verbose = cmd_args[1]
         self.arg_nologs  = cmd_args[2]
+        self.arg_rate    = cmd_args[3]
 
         # When only -n or --no-log-output is specified, 
         # argparse passes None because of string-to-bool
@@ -67,6 +68,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # print(f"Quiet   : {self.arg_quiet}")
         # print(f"Verbose : {self.arg_verbose}")
         # print(f"No Logs : {self.arg_nologs}")
+        # print(f"Rate    : {self.arg_rate}")
 
         # Some constants
         TD_MIN_X_RANGE = 0
@@ -200,9 +202,15 @@ class MainWindow(QtWidgets.QMainWindow):
         # Note: Some Mac systems have sound cards having a sampling
         # rate of 48 kHz.
         if self.opSystem == "Darwin":
-            self.RATE = 48000
+            if self.arg_rate == 44100 or self.arg_rate == 48000:
+                self.RATE = 48000
+            else:
+                self.RATE = self.arg_rate
         else:
-            self.RATE = 44100
+            if self.arg_rate == 44100 or self.arg_rate == 48000:
+                self.RATE = 44100
+            else:
+                self.RATE = self.arg_rate
 
         self.p = pyaudio.PyAudio()
 

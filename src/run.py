@@ -52,12 +52,20 @@ parser.add_argument('-n', '--no-log-save',
                     nargs = '?',
                     const = True,
                     default = False,
+                    required = False,
                     metavar = '',
                     help = 'Do not save log file.')
 
+parser.add_argument('-r', '--rate',
+                    type = int,
+                    choices = [8000, 16000, 32000, 44100, 48000],
+                    default = 44100,
+                    required = False,
+                    help = 'Sample rate of audio input.')
+
 group = parser.add_mutually_exclusive_group()
-group.add_argument('-q', '--quiet', action = 'store_true', help = 'Print quiet.')
-group.add_argument('-v', '--verbose', action = 'store_true', help = 'Print verbose.')
+group.add_argument('-q', '--quiet', action = 'store_true', help = 'Quiet mode.')
+group.add_argument('-v', '--verbose', action = 'store_true', help = 'Verbose mode.')
 
 cmd_args = parser.parse_args()
 
@@ -70,7 +78,8 @@ def main():
     arg_quiet = cmd_args_dict['quiet']
     arg_verbose = cmd_args_dict['verbose']
     arg_nologs = cmd_args_dict['no_log_save']
-    args_list = [arg_quiet, arg_verbose, arg_nologs]
+    arg_rate = cmd_args_dict['rate']
+    args_list = [arg_quiet, arg_verbose, arg_nologs, arg_rate]
 
     main = MainWindow(cmd_args = args_list)
     main.show()
