@@ -47,6 +47,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.arg_verbose = cmd_args[1]
         self.arg_nologs  = cmd_args[2]
         self.arg_rate    = cmd_args[3]
+        self.arg_fname   = cmd_args[4]
 
         # When only -n or --no-log-output is specified, 
         # argparse passes None because of string-to-bool
@@ -65,10 +66,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Debugging the correct values of CMD line arguments:
         # print(f"Arguments passed:")
-        # print(f"Quiet   : {self.arg_quiet}")
-        # print(f"Verbose : {self.arg_verbose}")
-        # print(f"No Logs : {self.arg_nologs}")
-        # print(f"Rate    : {self.arg_rate}")
+        # print(f"Quiet    : {self.arg_quiet}")
+        # print(f"Verbose  : {self.arg_verbose}")
+        # print(f"No Logs  : {self.arg_nologs}")
+        # print(f"Rate     : {self.arg_rate}")
+        # print(f"Filename : {self.arg_fname}")
 
         # Some constants
         TD_MIN_X_RANGE = 0
@@ -970,7 +972,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if reply == QtGui.QMessageBox.Yes:
             if not self.arg_nologs:
-                saveLog(self.txt_Status)
+                saveLog(self.txt_Status, self.arg_fname)
 
             if self.arg_verbose:
                 self.elapsedTime = time.time() - self.startTime
@@ -1020,7 +1022,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if reply == QtGui.QMessageBox.Yes:
             if not self.arg_nologs:
-                saveLog(self.txt_Status)
+                saveLog(self.txt_Status, self.arg_fname)
             
             print("Program exited successfully...")
             qApp.quit()
@@ -1039,7 +1041,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 print("Ignoring AttributeError...")
 
             if not self.arg_nologs:
-                saveLog(self.txt_Status)
+                saveLog(self.txt_Status, self.arg_fname)
             
             print("Program exited successfully...")
 

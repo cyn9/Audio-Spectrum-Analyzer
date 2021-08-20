@@ -63,6 +63,12 @@ parser.add_argument('-r', '--rate',
                     required = False,
                     help = 'Sample rate of audio input.')
 
+parser.add_argument('-f', '--log-filename',
+                    type = str,
+                    default = None,
+                    required = False,
+                    help = 'File name of the log output.')
+
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-q', '--quiet', action = 'store_true', help = 'Quiet mode.')
 group.add_argument('-v', '--verbose', action = 'store_true', help = 'Verbose mode.')
@@ -75,11 +81,14 @@ def main():
     app.setStyle('Fusion')
 
     cmd_args_dict = vars(cmd_args)
-    arg_quiet = cmd_args_dict['quiet']
-    arg_verbose = cmd_args_dict['verbose']
-    arg_nologs = cmd_args_dict['no_log_save']
-    arg_rate = cmd_args_dict['rate']
-    args_list = [arg_quiet, arg_verbose, arg_nologs, arg_rate]
+    arg_quiet     = cmd_args_dict['quiet']
+    arg_verbose   = cmd_args_dict['verbose']
+    arg_nologs    = cmd_args_dict['no_log_save']
+    arg_rate      = cmd_args_dict['rate']
+    arg_filename  = cmd_args_dict['log_filename']
+    
+    # List of arguments to be passed to main window:
+    args_list = [arg_quiet, arg_verbose, arg_nologs, arg_rate, arg_filename]
 
     main = MainWindow(cmd_args = args_list)
     main.show()
