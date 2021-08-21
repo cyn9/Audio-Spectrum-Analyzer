@@ -15,9 +15,25 @@ std_sample_rates = [8000.0, 9600.0, 11025.0, 12000.0,
                     192000.0]
 
 
-# statusText: Reference to status textfield
-# pIns: Reference instance to pyaudio object (p)
 def getDeviceInfo(statusText, pInst):
+    """
+    Displays the device information by appending the relevant API info
+    obtained from pyAudio instance.
+
+    Parameters
+    ----------
+        statusText : QTextBrowser
+            Takes status text object as reference for modification.
+        
+        pInst : pyAudio
+            pyAudio instance for getting the relevant API and device
+            information such as device count, version, default sampling
+            rate, input format, output channels, etc.
+    
+    Returns
+    -------
+        None
+    """
     maxAPIs = pInst.get_host_api_count()
     maxDevs = pInst.get_device_count()
 
