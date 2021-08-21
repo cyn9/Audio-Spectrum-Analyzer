@@ -1171,7 +1171,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         Parameters
         ----------
-            None
+            event : QtEvent object
+                Event object is used for terminating the program.
         
         Returns
         -------
