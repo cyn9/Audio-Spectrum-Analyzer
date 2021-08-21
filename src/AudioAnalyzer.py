@@ -75,6 +75,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.opSystem = platform.system()
         if self.opSystem == "Darwin":
             mpl.use('Qt5Agg')
+        
+        # Software related:
+        self.version = 3.3
 
         # Debugging the correct values of CMD line arguments:
         # print(f"Arguments passed:")
@@ -84,7 +87,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # print(f"Rate     : {self.arg_rate}")
         # print(f"Filename : {self.arg_fname}")
 
-        # Some constants
+        # Some constants related to plotting
         TD_MIN_X_RANGE = 0
         TD_MAX_X_RANGE = 2**12
         TD_WF_MIN_YVAL = -16000
@@ -1253,15 +1256,22 @@ class MainWindow(QtWidgets.QMainWindow):
         -------
             None
         """
+        today = datetime.today().strftime('%Y-%m-%d')
+        osName = platform.system()
+        osBits = struct.calcsize("P") * 8
+
+        aboutMsgText = "Version: " + str(self.version) + \
+                       "<br>Date: " + today + \
+                       "<br>Author: Cihan Asci, 2021, Nanolab, Tufts" + \
+                       "<br>Report an Issue: cihan.asci@tufts.edu" + \
+                       "<br>OS: " + osName + " " + str(osBits) + "-bit"
+
         aboutMsgStyle = QApplication.style()
         aboutMsg = QMessageBox()
         aboutMsg.setWindowTitle("About Me")
         aboutMsg.setIcon(QMessageBox.Information)
         aboutMsg.setText('<b>Real-Time Audio Analyzer</b>')
-        aboutMsg.setInformativeText("Version: 3.3" + "<br>Date: 2021-03-16" + 
-                                                    "<br>Cihan Asci, 2021, Nanolab, Tufts" + 
-                                                    "<br>Report an Issue: cihan.asci@tufts.edu" +
-                                                    "<br>OS: Windows 10 Pro 64-bit")
+        aboutMsg.setInformativeText(aboutMsgText)
         aboutMsg.setWindowIcon(QtGui.QIcon(aboutMsgStyle.standardIcon(QStyle.SP_DialogApplyButton)))
         aboutMsg.exec_()
     
