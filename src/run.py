@@ -1,11 +1,3 @@
-'''
-    @ author        cico
-    @ version       5.0
-    @ date          08/18/21
-    @ time          2:53 PM
-    @ description   Real-time audio signal analyzer
-'''
-
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QStyle
