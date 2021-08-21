@@ -3,6 +3,18 @@ from PyQt5 import QtWidgets
 
 class HelpWindow(QtWidgets.QMainWindow):
     def __init__(self):
+        """
+        Constructs all the necessary attributes for HelpWindow object for
+        getting the help window up-and-running.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         super().__init__()
         HELP_WIN_SCR_WIDTH = 630
         HELP_WIN_SCR_HEIGHT = 630
