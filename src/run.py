@@ -21,6 +21,18 @@ import textwrap
 # Argument boolean parse for --no-log-save
 # string to boolean conversion: 
 def strToBool(v):
+    """
+    Converts string to a boolean value.
+
+    Parameters
+    ----------
+        v : str
+            String input to be converted to a boolean.
+        
+    Returns
+    -------
+        Returns boolean value based on the string provided.
+    """
     if isinstance(v, bool):
         return v
     if v.lower() in ('yes', 'true', 't', 'y', '1', ' '):
@@ -77,6 +89,17 @@ cmd_args = parser.parse_args()
 
 
 def main():
+    """
+    Main function of the application.
+
+    Parameters
+    ----------
+        None
+
+    Returns
+    -------
+        None
+    """
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
 

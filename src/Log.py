@@ -4,6 +4,24 @@ import os
 
 
 def saveLog(statusText, fname):
+    """
+    Saves a log file to "logs" folder. Log file is filled with the
+    content of the status panel.
+
+    Parameters
+    ----------
+        statusText : QTextBrowser
+            Takes status text object as reference for readout.
+        
+        fname : str
+            File name passed in the command-line by the user. If not
+            specified, the default logfile name is created and based
+            upon the current time instance when the file is being saved.
+    
+    Returns
+    -------
+        None
+    """
     date = datetime.now()
 
     if not os.path.exists('logs'):
@@ -28,5 +46,5 @@ def saveLog(statusText, fname):
     f = open(filename_log, "x")
     f.write(statusText.toPlainText())
 
-    print(f"Log file written.")
+    print(f"Log file written to {filename_log}.")
     f.close()

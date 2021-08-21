@@ -261,6 +261,17 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def start(self):
+        """
+        Starts up the application (QtGui.QApplication).
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
             QtGui.QApplication.instance().exec_()
 
