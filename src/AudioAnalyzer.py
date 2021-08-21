@@ -3,7 +3,6 @@ Following features will be implemented:
 (1) Dynamic range compression
 (2) Limiter
 (3) Noise reduction
-(4) Timestamp in status window and saving log files.
 '''
 
 from pyqtgraph.Qt import QtGui
@@ -42,6 +41,19 @@ import time
 class MainWindow(QtWidgets.QMainWindow):
     # def __init__(self, *args, **kwargs):
     def __init__(self, cmd_args, *args, **kwargs):
+        """
+        Constructs all the necessary attributes for MainWindow object for
+        getting the main window up-and-running.
+
+        Parameters
+        ----------
+            cmd_args : list
+                list of command-line arguments
+        
+        Returns
+        -------
+            None
+        """
         # Command-line arguments as list elements
         self.arg_quiet   = cmd_args[0]
         self.arg_verbose = cmd_args[1]
@@ -254,6 +266,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def setPlotData(self, name, data_x, data_y):
+        """
+        Sets up the plot data into graph widget object. For the time-domain 
+        waveform and the frequency spectrum, the plot properties are passed
+        and the processed data is set to the traces.
+
+        Parameters
+        ----------
+            name : str
+                Trace name (waveform or spectrum) to set the graph widget.
+            data_x : int
+                Data to be shown in x-axis.
+            data_y : int
+                Data to be shown in y-axis.
+        
+        Returns
+        -------
+            None
+        """
         if name in self.traces:
             self.traces[name].setData(data_x, data_y)
 
@@ -284,6 +314,31 @@ class MainWindow(QtWidgets.QMainWindow):
 
     # Pass the data through the high pass filter
     def filterHighpass(self, data, f_cutoff, fs, approx, order = 5):
+        """
+        Filters raw, real-time data according to the specified lowpass filter
+        specifications such as cutoff frequency, sampling frequency, filter
+        approximation and order.
+
+        If not explicitly specified, the default filter order is 5.
+
+        Parameters
+        ----------
+            data : int
+                Data to be filtered.
+            f_cutoff : float
+                Cutoff frequency of the highpass filter.
+            fs : int
+                Sampling frequency of the highpass filter.
+            approx : str
+                Filter approximation (Butterworth, Chebyshev, ...)
+            order : int
+                Filter order.
+        
+        Returns
+        -------
+            y_filtered : int
+                Returns the highpass filtered data.
+        """
         if approx == 'Butterworth':
             b, a = designButterHPF(f_cutoff, fs, order = order)
         elif approx == 'Chebyshev-1':
@@ -301,6 +356,33 @@ class MainWindow(QtWidgets.QMainWindow):
 
     # Pass the data through the bandpass filter
     def filterBandpass(self, data, f_lcut, f_hcut, fs, approx, order = 5):
+        """
+        Filters raw, real-time data according to the specified bandpass filter
+        specifications such as cutoff frequencies, sampling frequency, filter
+        approximation and order.
+
+        If not explicitly specified, the default filter order is 5.
+
+        Parameters
+        ----------
+            data : int
+                Data to be filtered.
+            f_lcut : float
+                Lower cutoff frequency of the bandpass filter.
+            f_hcut : float
+                Higher cutoff frequency of the bandpass filter.
+            fs : int
+                Sampling frequency of the bandpass filter.
+            approx : str
+                Filter approximation (Butterworth, Chebyshev, ...)
+            order : int
+                Filter order.
+        
+        Returns
+        -------
+            y_filtered : int
+                Returns the bandpass filtered data.
+        """
         if approx == 'Butterworth':
             b, a = designButterBPF(f_lcut, f_hcut, fs, order = order)
         elif approx == 'Chebyshev-1':
@@ -319,6 +401,20 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def update(self):
+        """
+        Reads the audio stream and displays the raw data on the waveform graph widget.
+        Based on the options passed to the main window object such as filtering and
+        time-domain windowing, the raw data is processed. The processed data is then
+        converted to frequency domain using FFT (named as sp_data).
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         # Amplitude factor (default = 1)
         attenuation = tuple([1] * self.CHUNK)
 
@@ -407,11 +503,33 @@ class MainWindow(QtWidgets.QMainWindow):
         
     
     def showWindowCurrentText(self):
+        """
+        Displays the selected window function on the status panel.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         currentWindow = self.box_Window.currentText()
         self.txt_Status.append(f'<b>Window Function :</b> {currentWindow} is selected.')
 
 
     def showBoxFilterTypeCurrentText(self):
+        """
+        Displays the selected filter type (bandpass or lowpass) on the status panel.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         currentFilterType = self.box_FilterType.currentText()
         self.txt_Status.append(f'<b>Filter Type :</b> {currentFilterType} is selected.')
 
@@ -429,6 +547,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def snapshot(self):
+        """
+        Takes a snapshot of the waveform and spectrum graph widgets, and saves
+        image files.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         date = datetime.now()
         fileName_TD = date.strftime('%Y-%m-%d_%H-%M-%S_TD.png')
         fileName_FD = date.strftime('%Y-%m-%d_%H-%M-%S_FD.png')
@@ -436,19 +566,54 @@ class MainWindow(QtWidgets.QMainWindow):
         p_FD = self.graphWidget_FreqDomain.grab()
         p_TD.save(fileName_TD, 'png')
         p_FD.save(fileName_FD, 'png')
+
         self.txt_Status.append(f"Time-domain plot is saved.")
         self.txt_Status.append(f"Frequency-domain plot is saved.")
 
 
     def showBoxFilterOrderCurrentText(self):
+        """
+        Displays the selected filter order on the status panel.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         self.txt_Status.append(f"<b>Filter Order :</b> {self.box_FilterOrder.currentText()} is selected.")
     
 
     def showApproxCurrentText(self):
+        """
+        Displays the selected filter approximation on the status panel.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         self.txt_Status.append(f"<b>Approximation :</b> {self.box_Approx.currentText()} is selected.")
     
 
     def updateFilterStatus(self):
+        """
+        Adjusts GUI elements associated with the filtering based on enabling
+        or disabling Filtering checkbox.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         if self.chkBox_filterEn.isChecked():
             self.txt_Status.append('<b>Filter enabled...</b>')
             self.lbl_FilterType.setEnabled(True)
@@ -479,6 +644,18 @@ class MainWindow(QtWidgets.QMainWindow):
     
 
     def updateWindowStatus(self):
+        """
+        Adjusts GUI elements associated with the windowing based on enabling
+        or disabling Windowing checkbox.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         if self.chkBox_windowEn.isChecked():
             self.txt_Status.append('<b>Windowing enabled...</b>')
             self.lbl_Window.setEnabled(True)
@@ -493,6 +670,18 @@ class MainWindow(QtWidgets.QMainWindow):
     
 
     def plotFilterResponse(self):
+        """
+        Implements plotting filter response button. Sets up fonts, and relevant 
+        figure settings.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         plotFont = {'family' : 'Arial',
                     'weight' : 'bold',
                     'size'   : 13}
@@ -896,6 +1085,18 @@ class MainWindow(QtWidgets.QMainWindow):
     
 
     def plotWindowResponse(self):
+        """
+        Implements plotting window function button. Sets up fonts, and relevant 
+        figure settings.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         plotFont = {'family' : 'Arial',
                     'weight' : 'bold',
                     'size'   : 12}
@@ -965,6 +1166,17 @@ class MainWindow(QtWidgets.QMainWindow):
 
     # Exit the program.
     def exitProgram(self, event):
+        """
+        Shows the total running time and exits the program.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         quitMessage = "Are you sure you want to exit the program?"
 
         reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, 
@@ -984,11 +1196,33 @@ class MainWindow(QtWidgets.QMainWindow):
 
     # Clear status texts.
     def clearStatusPane(self):
+        """
+        Clears status and frequency information panels.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         self.txt_Status.clear()
         self.txt_Freq_Status.clear()
 
 
     def animation(self):
+        """
+        Initiates and connects real-time animation to update function.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         timer = QtCore.QTimer()
         timer.timeout.connect(self.update)
         timer.start(20)
@@ -996,6 +1230,17 @@ class MainWindow(QtWidgets.QMainWindow):
     
 
     def showAbout(self):
+        """
+        Shows "About Me" menu that is in the menubar Help.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         aboutMsgStyle = QApplication.style()
         aboutMsg = QMessageBox()
         aboutMsg.setWindowTitle("About Me")
@@ -1010,11 +1255,33 @@ class MainWindow(QtWidgets.QMainWindow):
     
     
     def openWindow2(self):
+        """
+        Shows "Help Window" that explains how to use the program.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         self.helpWindow = HelpWindow()
         self.helpWindow.show()
 
     
     def exitMenuButtonOnClick(self):
+        """
+        Exits the program using menu button.
+
+        Parameters
+        ----------
+            None
+        
+        Returns
+        -------
+            None
+        """
         quitMessage = "Are you sure you want to exit the program?"
 
         reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, 
@@ -1029,6 +1296,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def closeEvent(self, event):
+        """
+        Triggers close event.
+
+        Parameters
+        ----------
+            event : QtEvent object
+                Event object is used for terminating the program.
+        
+        Returns
+        -------
+            None
+        """
         quitMessage = "Are you sure you want to exit the program?"
 
         reply = QtGui.QMessageBox.question(self, 'Exit Program?', quitMessage, QtGui.QMessageBox.Yes, 
