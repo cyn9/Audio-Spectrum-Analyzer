@@ -17,7 +17,9 @@ class HelpWindow(QtWidgets.QMainWindow):
         """
         super().__init__()
         HELP_WIN_SCR_WIDTH = 630
-        HELP_WIN_SCR_HEIGHT = 630
+        HELP_WIN_SCR_HEIGHT = 664
 
         uic.loadUi('/Users/ciyan/Documents/Audio-Spectrum-Analyzer/ui/HelpWin.ui', self)
         self.setFixedSize(HELP_WIN_SCR_WIDTH, HELP_WIN_SCR_HEIGHT)
+
+        self.btn_Close.clicked.connect(lambda: self.close())
