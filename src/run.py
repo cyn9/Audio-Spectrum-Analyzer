@@ -19,7 +19,8 @@ def strToBool(v):
     Parameters
     ----------
         v : str
-            String input to be converted to a boolean.
+            String input to be converted to a boolean. Boolean
+            expression (True or False) can also be directly passed.
         
     Returns
     -------
@@ -110,10 +111,12 @@ def main():
 
     # Welcome message:
     welcomeMsgStyle = QApplication.style()
+    welcomeText = 'Welcome to Real-Time Audio Analyzer.' + \
+                  ' Please refer to "Help" section for further information. Press OK to start.'
     welcomeMsg = QMessageBox()
     welcomeMsg.setWindowTitle("Hi!")
     welcomeMsg.setIcon(QMessageBox.Information)
-    welcomeMsg.setText('Welcome to Real-Time Audio Analyzer. Please refer to "Help" section for further information. Press OK to start.')
+    welcomeMsg.setText(welcomeText)
     welcomeMsg.setWindowIcon(QtGui.QIcon(welcomeMsgStyle.standardIcon(QStyle.SP_DialogApplyButton)))
     welcomeMsg.exec_()
 
@@ -127,7 +130,7 @@ if __name__ == '__main__':
     if float(sys.version_info[0]) < 3.0:
         raise Exception("Must be using Python 3 or newer.")
 
-    if (len(sys.argv) > 1):
+    if len(sys.argv) > 1:
         if cmd_args.quiet:
             cmd_args.quiet = True
 
