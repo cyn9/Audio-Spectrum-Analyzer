@@ -115,7 +115,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.action_About.triggered.connect(self.showAbout)
 
         # Help app menu item onClick event
-        self.action_Help.triggered.connect(self.openWindow2)
+        self.action_Help.triggered.connect(self.openHelpWindow)
 
         # Remove IIR peak filter item because 'Highpass' option is default.
         self.box_Approx.removeItem(self.box_Approx.findText('IIR Peak'))
@@ -492,7 +492,11 @@ class MainWindow(QtWidgets.QMainWindow):
             f_high_cutoff = float(self.txt_Cutoff_2.text())
             filter_order = float(self.box_FilterOrder.currentText())
 
-            y_filtered = self.filterBandpass(data_int, f_low_cutoff, f_high_cutoff, self.RATE, currentFilterApprox, filter_order)
+            y_filtered = self.filterBandpass(data_int, f_low_cutoff, 
+                                                       f_high_cutoff, 
+                                                       self.RATE, 
+                                                       currentFilterApprox, 
+                                                       filter_order)
             y_fft = fft(y_filtered)
 
         else:
@@ -517,6 +521,93 @@ class MainWindow(QtWidgets.QMainWindow):
             self.txt_Freq_Status.append(self.statusText.format(num = freqVal))
         
     
+    def getInputDevices(self, pInst):
+        """
+        Returns a list of input devices connected to the system. The intended
+        use of this function is debugging.
+
+        Parameters
+        ----------
+            pInst : pyAudio
+                pyAudio instance for getting the relevant API and device
+                information such as device count, version, default sampling
+                rate, input format, output channels, etc.
+        
+        Returns
+        -------
+            None
+        """
+        inputDevices = list()
+
+        # Check if the connected device is valid: if yes, append to list.
+        for device in range(pInst.get_device_count()):
+            if self.isDeviceValid(device):
+                inputDevices.append(device)
+        
+        # Print list of devices for debugging:
+        if len(inputDevices == 0):
+            print(f"No input devices are found.")
+        else:
+            print(f"Number of devices: {len(inputDevices)}")
+            print(f"List of input devices: ")
+            print(inputDevices)
+
+
+    def isDeviceValid(self, testDevice, sampleRate = 44100):
+        """
+        Tests the given input devices and returns True if it is valid. If 
+        not valid, returns False. The intended use of this function is 
+        debugging.
+
+        Parameters
+        ----------
+            testDevice : 
+                pyAudio device instance for testing the validity.
+
+            sampleRate : int
+                Sampling rate for the device. The default value is 44100.
+
+        Returns
+        -------
+            Device validity (True or False)
+        """
+        # Bring the sampling rate to 48000 kHz if the system is Darwin.
+        # Default test rate is 44100.
+        if self.opSystem == "Darwin" and self.arg_rate == 44100:
+            sampleRate = 48000
+        
+        try:
+            assert sampleRate >= 44100, 'Incorrect sample rate'
+            
+            deviceInfo = self.p.get_device_info_by_index(testDevice)
+
+            # Check the number of input channels:
+            if not deviceInfo['maxInputChannels'] > 0:
+                print("Invalid audio input device.")
+                return False
+
+            # Try to open a temporary test stream for the particular
+            # input device to test the validity. Once it opens, close
+            #  the stream and return True:
+            tempStream = self.p.open(
+                format             = self.FORMAT,
+                channels           = self.CHANNELS,
+                rate               = sampleRate,
+                input_device_index = testDevice,
+                input              = True,
+                output             = False,
+                frames_per_buffer  = self.CHUNK
+            )
+
+            # Close the temporary stream, and complete the test:
+            tempStream.close()
+            return True
+        
+        except OSError:
+            print("Invalid audio input device.")
+            return False
+
+
     def showWindowCurrentText(self):
         """
         Displays the selected window function on the status panel.
@@ -892,7 +983,10 @@ class MainWindow(QtWidgets.QMainWindow):
             filter_order = float(self.box_FilterOrder.currentText())
 
             # Design the filter
-            b, a = designButterBPF(f_lc = f_low_cutoff, f_hc = f_high_cutoff, fs = self.RATE, order = filter_order)
+            b, a = designButterBPF(f_lc = f_low_cutoff, 
+                                   f_hc = f_high_cutoff, 
+                                   fs = self.RATE, 
+                                   order = filter_order)
             # Get the frequency response of the filter
             w, h = freqz(b, a, worN = filter_worN)
 
@@ -922,7 +1016,11 @@ class MainWindow(QtWidgets.QMainWindow):
             filter_order = float(self.box_FilterOrder.currentText())
 
             # Design the filter
-            b, a = designChebyshevBPF(f_hc = f_high_cutoff, f_lc = f_low_cutoff, fs = self.RATE, rp = 0.5, order = filter_order)
+            b, a = designChebyshevBPF(f_hc = f_high_cutoff, 
+                                      f_lc = f_low_cutoff, 
+                                      fs = self.RATE, 
+                                      rp = 0.5, 
+                                      order = filter_order)
             # Get the frequency response of the filter
             w, h = freqz(b, a, worN = filter_worN)
 
@@ -996,7 +1094,12 @@ class MainWindow(QtWidgets.QMainWindow):
             filter_order = float(self.box_FilterOrder.currentText())
 
             # Design the filter
-            b, a = designEllipticBPF(f_hc = f_high_cutoff, f_lc = f_low_cutoff, fs = self.RATE, rp = 0.5, rs = 40, order = filter_order)
+            b, a = designEllipticBPF(f_hc = f_high_cutoff, 
+                                     f_lc = f_low_cutoff, 
+                                     fs = self.RATE, 
+                                     rp = 0.5, 
+                                     rs = 40, 
+                                     order = filter_order)
             # Get the frequency response of the filter
             w, h = freqz(b, a, worN = filter_worN)
 
@@ -1277,7 +1380,7 @@ class MainWindow(QtWidgets.QMainWindow):
         aboutMsg.exec_()
     
     
-    def openWindow2(self):
+    def openHelpWindow(self):
         """
         Shows "Help Window" that explains how to use the program.
 
