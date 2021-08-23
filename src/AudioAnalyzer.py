@@ -19,6 +19,8 @@ from scipy.fftpack import fftshift
 from scipy.signal import lfilter
 from scipy.signal import freqz
 
+from progress.bar import ChargingBar
+
 from tkinter import TclError
 from datetime import datetime
 
@@ -54,214 +56,264 @@ class MainWindow(QtWidgets.QMainWindow):
         -------
             None
         """
-        # Command-line arguments as list elements
-        self.arg_quiet   = cmd_args[0]
-        self.arg_verbose = cmd_args[1]
-        self.arg_nologs  = cmd_args[2]
-        self.arg_rate    = cmd_args[3]
-        self.arg_fname   = cmd_args[4]
 
-        # When only -n or --no-log-output is specified, 
-        # argparse passes None because of string-to-bool
-        # conversion. Change None to true:
-        if self.arg_nologs is None:
-            self.arg_nologs = True
+        print(f"Welcome to Real-Time Audio Analyzer")
+        print()
 
-        if self.arg_verbose:
-            self.startTime = time.time()
+        with ChargingBar('Loading...') as bar:
+            # Command-line arguments as list elements
+            self.arg_quiet   = cmd_args[0]
+            self.arg_verbose = cmd_args[1]
+            self.arg_nologs  = cmd_args[2]
+            self.arg_rate    = cmd_args[3]
+            self.arg_fname   = cmd_args[4]
 
-        # Platform check for MacOS
-        # Somehow there is a problem with the Tk backend.
-        self.opSystem = platform.system()
-        if self.opSystem == "Darwin":
-            mpl.use('Qt5Agg')
-        
-        # Software related:
-        self.version = 3.3
+            for _ in range(4):
+                bar.next()
 
-        # Debugging the correct values of CMD line arguments:
-        # print(f"Arguments passed:")
-        # print(f"Quiet    : {self.arg_quiet}")
-        # print(f"Verbose  : {self.arg_verbose}")
-        # print(f"No Logs  : {self.arg_nologs}")
-        # print(f"Rate     : {self.arg_rate}")
-        # print(f"Filename : {self.arg_fname}")
+            # When only -n or --no-log-output is specified, 
+            # argparse passes None because of string-to-bool
+            # conversion. Change None to true:
+            if self.arg_nologs is None:
+                self.arg_nologs = True
 
-        # Some constants related to plotting
-        TD_MIN_X_RANGE = 0
-        TD_MAX_X_RANGE = 2**12
-        TD_WF_MIN_YVAL = -16000
-        TD_WF_MAX_YVAL = 16000
-        TD_WF_YMIN = -2**14
-        TD_WF_YMAX = 2**14
+            if self.arg_verbose:
+                self.startTime = time.time()
 
-        # Screen width and height properties overriding
-        # QtDesigner values - final values for fixing the menubar
-        SCR_WIDTH = 908
-        SCR_HEIGHT = 807
+            for _ in range(2):
+                bar.next()
 
-        super(MainWindow, self).__init__(*args, **kwargs)
-        pg.setConfigOptions(antialias = True)
+            # Platform check for MacOS
+            # Somehow there is a problem with the Tk backend.
+            self.opSystem = platform.system()
+            if self.opSystem == "Darwin":
+                mpl.use('Qt5Agg')
+            
+            # Software related:
+            self.version = 3.3
 
-        # Load the UI Page
-        uic.loadUi("./ui/MainWindow.ui", self)
-        self.setFixedSize(SCR_WIDTH, SCR_HEIGHT)
-        self.setFont(QtGui.QFont('Arial'))
+            for _ in range(2):
+                bar.next()
 
-        # Exit app menu item onClick event
-        self.action_ExitProgram.triggered.connect(self.exitMenuButtonOnClick)
+            # Debugging the correct values of CMD line arguments:
+            # print(f"Arguments passed:")
+            # print(f"Quiet    : {self.arg_quiet}")
+            # print(f"Verbose  : {self.arg_verbose}")
+            # print(f"No Logs  : {self.arg_nologs}")
+            # print(f"Rate     : {self.arg_rate}")
+            # print(f"Filename : {self.arg_fname}")
 
-        # About app menu item onClick event
-        self.action_About.triggered.connect(self.showAbout)
+            # Some constants related to plotting
+            TD_MIN_X_RANGE = 0
+            TD_MAX_X_RANGE = 2**12
+            TD_WF_MIN_YVAL = -16000
+            TD_WF_MAX_YVAL = 16000
+            TD_WF_YMIN = -2**14
+            TD_WF_YMAX = 2**14
 
-        # Help app menu item onClick event
-        self.action_Help.triggered.connect(self.openHelpWindow)
+            # Screen width and height properties overriding
+            # QtDesigner values - final values for fixing the menubar
+            SCR_WIDTH = 908
+            SCR_HEIGHT = 807
 
-        # Remove IIR peak filter item because 'Highpass' option is default.
-        self.box_Approx.removeItem(self.box_Approx.findText('IIR Peak'))
+            for _ in range(3):
+                bar.next()
 
-        # Default Windowing is disabled. Disable some properties.
-        self.chkBox_windowEn.setChecked(False)
-        self.lbl_Window.setEnabled(False)
-        self.box_Window.setEnabled(False)
-        self.btn_WindowResponse.setEnabled(False)
+            super(MainWindow, self).__init__(*args, **kwargs)
+            pg.setConfigOptions(antialias = True)
 
-        # Filter enable/disable checkbox properties:
-        self.chkBox_filterEn.stateChanged.connect(self.updateFilterStatus)
+            for _ in range(3):
+                bar.next()
 
-        # Window function enable/disable checkbox properties:
-        self.chkBox_windowEn.stateChanged.connect(self.updateWindowStatus)
-        
-        # Filter type combobox onSelect event
-        self.box_FilterType.activated.connect(self.showBoxFilterTypeCurrentText)
-        
-        # Window type combobox onSelect event
-        self.box_Window.activated.connect(self.showWindowCurrentText)
+            # Load the UI Page
+            uic.loadUi("./ui/MainWindow.ui", self)
+            self.setFixedSize(SCR_WIDTH, SCR_HEIGHT)
+            self.setFont(QtGui.QFont('Arial'))
 
-        # Filter approximation combobox onSelect event
-        self.box_Approx.activated.connect(self.showApproxCurrentText)
+            for _ in range(12):
+                bar.next()
 
-        # Filter order combobox onSelect event
-        self.box_FilterOrder.activated.connect(self.showBoxFilterOrderCurrentText)
+            # Exit app menu item onClick event
+            self.action_ExitProgram.triggered.connect(self.exitMenuButtonOnClick)
 
-        # Default visibility for higher cutoff freq. options
-        self.lbl_Cutoff_2.setVisible(False)
-        self.txt_Cutoff_2.setVisible(False)
+            # About app menu item onClick event
+            self.action_About.triggered.connect(self.showAbout)
 
-        # Button onClick event for the program termination
-        self.btn_Exit.clicked.connect(self.exitProgram)
+            # Help app menu item onClick event
+            self.action_Help.triggered.connect(self.openHelpWindow)
 
-        # Button onClick event for snapshot
-        self.btn_Snapshot.clicked.connect(self.snapshot)
+            # Remove IIR peak filter item because 'Highpass' option is default.
+            self.box_Approx.removeItem(self.box_Approx.findText('IIR Peak'))
 
-        # Button onClick event for show filter response
-        self.btn_FilterResponse.clicked.connect(self.plotFilterResponse)
+            # Default Windowing is disabled. Disable some properties.
+            self.chkBox_windowEn.setChecked(False)
+            self.lbl_Window.setEnabled(False)
+            self.box_Window.setEnabled(False)
+            self.btn_WindowResponse.setEnabled(False)
 
-        # Button onClick event for show window response
-        self.btn_WindowResponse.clicked.connect(self.plotWindowResponse)
+            for _ in range(2):
+                bar.next()
 
-        # Button onClick event for clear
-        self.btn_Clear.clicked.connect(self.clearStatusPane)
+            # Filter enable/disable checkbox properties:
+            self.chkBox_filterEn.stateChanged.connect(self.updateFilterStatus)
 
-        # Traces dictionary as storing plot data names
-        self.traces = dict()
+            # Window function enable/disable checkbox properties:
+            self.chkBox_windowEn.stateChanged.connect(self.updateWindowStatus)
+            
+            # Filter type combobox onSelect event
+            self.box_FilterType.activated.connect(self.showBoxFilterTypeCurrentText)
+            
+            # Window type combobox onSelect event
+            self.box_Window.activated.connect(self.showWindowCurrentText)
 
-        # Native menubar flag set as false to show actual menubar
-        self.menubar.setNativeMenuBar(False)
+            # Filter approximation combobox onSelect event
+            self.box_Approx.activated.connect(self.showApproxCurrentText)
 
-        # Graph widget properties
-        self.graphWidget_TimeDomain.setLabels(title = '<b><font face="Arial" style="color:white">WAVEFORM</font></b>')
-        self.graphWidget_FreqDomain.setLabels(title = '<b><font face="Arial" style="color:white">SPECTRUM</font></b>')
+            # Filter order combobox onSelect event
+            self.box_FilterOrder.activated.connect(self.showBoxFilterOrderCurrentText)
 
-        self.graphWidget_TimeDomain.setLimits(xMin = 0,
-                                              xMax = TD_MAX_X_RANGE,
-                                              yMin = TD_WF_YMIN,
-                                              yMax = TD_WF_YMAX)
+            # Default visibility for higher cutoff freq. options
+            self.lbl_Cutoff_2.setVisible(False)
+            self.txt_Cutoff_2.setVisible(False)
 
-        self.graphWidget_TimeDomain.setXRange(min = TD_MIN_X_RANGE,
-                                              max = TD_MAX_X_RANGE,
-                                              padding = 0.5,
-                                              update = True)
+            for _ in range(4):
+                bar.next()
 
-        self.graphWidget_TimeDomain.setYRange(min = TD_WF_MIN_YVAL,
-                                              max = TD_WF_MAX_YVAL,
-                                              padding = 0.5,
-                                              update = True)
+            # Button onClick event for the program termination
+            self.btn_Exit.clicked.connect(self.exitProgram)
 
-        self.pyGraphFont = QtGui.QFont("Arial")
-        self.pyGraphFont.setPixelSize(14)
-        self.pyGraphFont.setBold(True)
+            # Button onClick event for snapshot
+            self.btn_Snapshot.clicked.connect(self.snapshot)
 
-        self.graphWidget_TimeDomain.getAxis("bottom").setStyle(tickFont = self.pyGraphFont)
-        self.graphWidget_TimeDomain.getAxis("left").setStyle(tickFont = self.pyGraphFont)
-        self.graphWidget_FreqDomain.getAxis("bottom").setStyle(tickFont = self.pyGraphFont)
-        self.graphWidget_FreqDomain.getAxis("left").setStyle(tickFont = self.pyGraphFont)
+            # Button onClick event for show filter response
+            self.btn_FilterResponse.clicked.connect(self.plotFilterResponse)
 
-        td_wf_xticks = [0, 2048, 4096]
-        td_wf_yticks = [-16000, 0, 16000]
-        td_wf_xaxis = self.graphWidget_TimeDomain.getAxis('bottom')
-        td_wf_yaxis = self.graphWidget_TimeDomain.getAxis('left')
-        td_wf_xaxis.setTicks([[(v, str(v)) for v in td_wf_xticks]])
-        td_wf_yaxis.setTicks([[(v, str(v)) for v in td_wf_yticks]])
-        
-        self.graphWidget_FreqDomain.setYRange(min = -4, 
-                                              max = 2, 
-                                              padding = 0.5,
-                                              update = True)
+            # Button onClick event for show window response
+            self.btn_WindowResponse.clicked.connect(self.plotWindowResponse)
 
-        self.graphWidget_TimeDomain.setMouseEnabled(x = False, y = False)
-        self.graphWidget_FreqDomain.setMouseEnabled(x = False, y = False)
+            # Button onClick event for clear
+            self.btn_Clear.clicked.connect(self.clearStatusPane)
 
-        # PyAudio object initialization
-        self.FORMAT   = pyaudio.paInt16
-        self.CHANNELS = 1
-        self.CHUNK = 1024 * 2
+            # Traces dictionary as storing plot data names
+            self.traces = dict()
 
-        # Note: Some Mac systems have sound cards having a sampling
-        # rate of 48 kHz.
-        if self.opSystem == "Darwin":
-            if self.arg_rate == 44100 or self.arg_rate == 48000:
-                self.RATE = 48000
+            for _ in range(5):
+                bar.next()
+
+            # Native menubar flag set as false to show actual menubar
+            self.menubar.setNativeMenuBar(False)
+
+            # Graph widget properties
+            self.graphWidget_TimeDomain.setLabels(title = '<b><font face="Arial" style="color:white">WAVEFORM</font></b>')
+            self.graphWidget_FreqDomain.setLabels(title = '<b><font face="Arial" style="color:white">SPECTRUM</font></b>')
+
+            self.graphWidget_TimeDomain.setLimits(xMin = 0,
+                                                xMax = TD_MAX_X_RANGE,
+                                                yMin = TD_WF_YMIN,
+                                                yMax = TD_WF_YMAX)
+
+            self.graphWidget_TimeDomain.setXRange(min = TD_MIN_X_RANGE,
+                                                max = TD_MAX_X_RANGE,
+                                                padding = 0.5,
+                                                update = True)
+
+            self.graphWidget_TimeDomain.setYRange(min = TD_WF_MIN_YVAL,
+                                                max = TD_WF_MAX_YVAL,
+                                                padding = 0.5,
+                                                update = True)
+
+            for _ in range(10):
+                bar.next()
+
+            self.pyGraphFont = QtGui.QFont("Arial")
+            self.pyGraphFont.setPixelSize(14)
+            self.pyGraphFont.setBold(True)
+
+            self.graphWidget_TimeDomain.getAxis("bottom").setStyle(tickFont = self.pyGraphFont)
+            self.graphWidget_TimeDomain.getAxis("left").setStyle(tickFont = self.pyGraphFont)
+            self.graphWidget_FreqDomain.getAxis("bottom").setStyle(tickFont = self.pyGraphFont)
+            self.graphWidget_FreqDomain.getAxis("left").setStyle(tickFont = self.pyGraphFont)
+
+            td_wf_xticks = [0, 2048, 4096]
+            td_wf_yticks = [-16000, 0, 16000]
+            td_wf_xaxis = self.graphWidget_TimeDomain.getAxis('bottom')
+            td_wf_yaxis = self.graphWidget_TimeDomain.getAxis('left')
+            td_wf_xaxis.setTicks([[(v, str(v)) for v in td_wf_xticks]])
+            td_wf_yaxis.setTicks([[(v, str(v)) for v in td_wf_yticks]])
+
+            for _ in range(5):
+                bar.next()
+            
+            self.graphWidget_FreqDomain.setYRange(min = -4, 
+                                                max = 2, 
+                                                padding = 0.5,
+                                                update = True)
+
+            self.graphWidget_TimeDomain.setMouseEnabled(x = False, y = False)
+            self.graphWidget_FreqDomain.setMouseEnabled(x = False, y = False)
+
+            # PyAudio object initialization
+            self.FORMAT   = pyaudio.paInt16
+            self.CHANNELS = 1
+            self.CHUNK = 1024 * 2
+
+            for _ in range(5):
+                bar.next()
+
+            # Note: Some Mac systems have sound cards having a sampling
+            # rate of 48 kHz.
+            if self.opSystem == "Darwin":
+                if self.arg_rate == 44100 or self.arg_rate == 48000:
+                    self.RATE = 48000
+                else:
+                    self.RATE = self.arg_rate
             else:
-                self.RATE = self.arg_rate
-        else:
-            if self.arg_rate == 44100 or self.arg_rate == 48000:
-                self.RATE = 44100
-            else:
-                self.RATE = self.arg_rate
+                if self.arg_rate == 44100 or self.arg_rate == 48000:
+                    self.RATE = 44100
+                else:
+                    self.RATE = self.arg_rate
 
-        self.p = pyaudio.PyAudio()
+            self.p = pyaudio.PyAudio()
 
-        # Get audio device and PyAudio related info
-        getDeviceInfo(self.txt_Status, self.p)
+            for _ in range(18):
+                bar.next()
 
-        self.chosen_device_index = -1
-        for x in range(0, self.p.get_device_count()):
-            self.info = self.p.get_device_info_by_index(x)
+            # Get audio device and PyAudio related info
+            getDeviceInfo(self.txt_Status, self.p)
 
-            if self.info["name"] == "pulse":
-                self.chosen_device_index = self.info["index"]
-                print(f"Chosen index: {self.chosen_device_index}")
+            self.chosen_device_index = -1
+            for x in range(0, self.p.get_device_count()):
+                self.info = self.p.get_device_info_by_index(x)
 
-        # Try to start streaming the audio input
-        try:
-            self.stream = self.p.open(
-                format             = self.FORMAT,
-                channels           = self.CHANNELS,
-                rate               = self.RATE,
-                input_device_index = self.chosen_device_index,
-                input              = True,
-                output             = False,
-                frames_per_buffer  = self.CHUNK
-            )
-        except OSError:
-            print("No audio input device is found.")
-            sys.exit()
-            # Might want to change this from exit() to wait
-            # for user input.
+                if self.info["name"] == "pulse":
+                    self.chosen_device_index = self.info["index"]
+                    print(f"Chosen index: {self.chosen_device_index}")
 
-        self.x = np.arange(0, 2 * self.CHUNK, 2)
-        self.f = np.linspace(0, int(self.RATE / 2), int(self.CHUNK / 2))
+            # Try to start streaming the audio input
+            try:
+                self.stream = self.p.open(
+                    format             = self.FORMAT,
+                    channels           = self.CHANNELS,
+                    rate               = self.RATE,
+                    input_device_index = self.chosen_device_index,
+                    input              = True,
+                    output             = False,
+                    frames_per_buffer  = self.CHUNK
+                )
+            except OSError:
+                print("No audio input device is found.")
+                sys.exit()
+                # Might want to change this from exit() to wait
+                # for user input.
+            
+            for _ in range(25):
+                bar.next()
+
+            self.x = np.arange(0, 2 * self.CHUNK, 2)
+            self.f = np.linspace(0, int(self.RATE / 2), int(self.CHUNK / 2))
+        
+        print(f"Program loading done...")
+        print()
 
 
     def start(self):
