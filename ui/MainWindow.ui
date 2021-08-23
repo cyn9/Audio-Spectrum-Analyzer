@@ -79,6 +79,12 @@
           <height>24</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Enable Filtering</string>
         </property>
@@ -91,7 +97,7 @@
          <rect>
           <x>0</x>
           <y>60</y>
-          <width>286</width>
+          <width>289</width>
           <height>238</height>
          </rect>
         </property>
@@ -116,6 +122,12 @@
          </property>
          <item row="1" column="0">
           <widget class="QLabel" name="lbl_FilterType">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::LeftToRight</enum>
            </property>
@@ -149,6 +161,12 @@
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="lbl_Approx">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
            </property>
@@ -202,6 +220,12 @@
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="lbl_FilterOrder">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
            </property>
@@ -251,6 +275,12 @@
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="lbl_Cutoff_1">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
            </property>
@@ -277,6 +307,12 @@
          </item>
          <item row="6" column="0">
           <widget class="QLabel" name="lbl_Cutoff_2">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
            </property>
@@ -303,6 +339,12 @@
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="lbl_Window">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::RightToLeft</enum>
            </property>
@@ -373,6 +415,12 @@
           <width>134</width>
           <height>24</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Enable Windowing</string>
@@ -504,6 +552,8 @@
        <property name="font">
         <font>
          <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="mouseTracking">
@@ -564,6 +614,8 @@
        <property name="font">
         <font>
          <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="mouseTracking">
@@ -624,6 +676,8 @@
        <property name="font">
         <font>
          <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="mouseTracking">
@@ -686,6 +740,8 @@
          <property name="font">
           <font>
            <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="mouseTracking">
@@ -746,6 +802,8 @@
          <property name="font">
           <font>
            <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
          <property name="mouseTracking">
