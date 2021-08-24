@@ -120,7 +120,15 @@ class MainWindow(QtWidgets.QMainWindow):
                 bar.next()
 
             super(MainWindow, self).__init__(*args, **kwargs)
-            pg.setConfigOptions(antialias = True)
+
+            # PyQtGraph config options:
+            pg.setConfigOptions(antialias = True, 
+                                crashWarning = True,
+                                exitCleanup = True)
+            # Will use background and foreground colors for
+            # color modes: dark/light/auto
+            # pg.setConfigOption('background', 'w')
+            # pg.setConfigOption('foreground', 'k')
 
             for _ in range(3):
                 bar.next()
@@ -176,7 +184,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.lbl_Cutoff_2.setVisible(False)
             self.txt_Cutoff_2.setVisible(False)
 
-            for _ in range(4):
+            for _ in range(3):
                 bar.next()
 
             # Button onClick event for the program termination
@@ -241,7 +249,7 @@ class MainWindow(QtWidgets.QMainWindow):
             td_wf_xaxis.setTicks([[(v, str(v)) for v in td_wf_xticks]])
             td_wf_yaxis.setTicks([[(v, str(v)) for v in td_wf_yticks]])
 
-            for _ in range(5):
+            for _ in range(6):
                 bar.next()
             
             self.graphWidget_FreqDomain.setYRange(min = -4, 
