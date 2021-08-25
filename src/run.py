@@ -6,8 +6,10 @@ from PyQt5 import QtWidgets
 from pyqtgraph.Qt import QtGui
 from AudioAnalyzer import MainWindow
 
+import os
 import sys
 import argparse
+import shutil
 import textwrap
 
 # Argument boolean parse for --no-log-save
@@ -143,5 +145,17 @@ if __name__ == '__main__':
     # No-args, just run the program in 'quiet' as default.
     else:
         cmd_args.quiet = True
+
+    # __pycache__ folder cleanup:
+    # Check if __pycache__ exists. If yes, delete the folder:
+    try:
+        baseDir = 'src'
+        dirPycache = '__pycache__'
+        pathPycache = os.path.join(baseDir, dirPycache)
+        isPycacheExists = os.path.isfile(pathPycache)
+
+        shutil.rmtree(pathPycache)
+    except OSError as err:
+        print(err)
     
     main()
