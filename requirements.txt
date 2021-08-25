@@ -1,0 +1,8 @@
+matplotlib==3.4.2
+progress==1.6
+scipy==1.6.3
+numpy==1.20.3
+PyAudio==0.2.11
+pyqtgraph==0.12.1
+pyperclip==1.8.2
+PyQt5==5.15.4
