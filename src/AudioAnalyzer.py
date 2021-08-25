@@ -31,6 +31,7 @@ from DeviceInfo import *
 from Log import *
 
 import platform
+import math
 import numpy as np
 import pyqtgraph as pg
 import matplotlib as mpl
@@ -59,6 +60,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         print(f"Welcome to Real-Time Audio Analyzer")
         print()
+
+        self.iter_count = 0
 
         with ChargingBar('Loading...') as bar:
             # Command-line arguments as list elements
@@ -500,6 +503,12 @@ class MainWindow(QtWidgets.QMainWindow):
         # Tuple multiplication for obtanining attenuated data_int stream.
         data_int = tuple(e1 * e2 for e1, e2 in zip(attenuation, data_int))
 
+        # Print volume (in dB) every 10 update:
+        if self.iter_count % 10 == 0:
+            print(f"Volume: {self.calculateVolume(data_int):.3f} dB.")
+        
+        self.iter_count += 1
+
         self.setPlotData(name = 'waveform',
                          data_x = self.x,
                          data_y = data_int)
@@ -580,7 +589,35 @@ class MainWindow(QtWidgets.QMainWindow):
             self.statusText = "<b>Frequency:</b> {num:.2f} Hz."
             self.txt_Freq_Status.append(self.statusText.format(num = freqVal))
         
+
+    def calculateVolume(self, data_int):
+        """
+        Gets the unpacked audio stream data and calculates the volume. Returns
+        in decibels.
+
+        Parameters
+        ----------
+            data_int : float
+                Input data stream (already unpacked data).
+        
+        Returns
+        -------
+            dB : float
+                Volume of the audio stream in decibels (dB).
+        """
+        count = len(data_int) / 2
+        square_sum = 0.0
+
+        # Calculate the RMS value:
+        for s in data_int:
+            n = s * (1.0 / (2**15))
+            square_sum += n * n
+
+        rms = math.sqrt(square_sum / count)
+        dB = 20 * math.log10(rms)
+        return dB
     
+
     def getInputDevices(self, pInst):
         """
         Returns a list of input devices connected to the system. The intended
@@ -623,7 +660,6 @@ class MainWindow(QtWidgets.QMainWindow):
         ----------
             testDevice : 
                 pyAudio device instance for testing the validity.
-
             sampleRate : int
                 Sampling rate for the device. The default value is 44100.
 
