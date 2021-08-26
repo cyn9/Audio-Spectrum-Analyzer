@@ -717,6 +717,10 @@ class MainWindow(QtWidgets.QMainWindow):
             None
         """
         currentWindow = self.box_Window.currentText()
+
+        date = datetime.now()
+        time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+        self.txt_Status.append(time_stamp)
         self.txt_Status.append(f'<b>Window Function :</b> {currentWindow} is selected.')
 
 
@@ -733,6 +737,10 @@ class MainWindow(QtWidgets.QMainWindow):
             None
         """
         currentFilterType = self.box_FilterType.currentText()
+
+        date = datetime.now()
+        time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+        self.txt_Status.append(time_stamp)
         self.txt_Status.append(f'<b>Filter Type :</b> {currentFilterType} is selected.')
 
         if (currentFilterType == 'Bandpass'):
@@ -769,7 +777,14 @@ class MainWindow(QtWidgets.QMainWindow):
         p_TD.save(fileName_TD, 'png')
         p_FD.save(fileName_FD, 'png')
 
+        date = datetime.now()
+        time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+        self.txt_Status.append(time_stamp)
         self.txt_Status.append(f"Time-domain plot is saved.")
+
+        date = datetime.now()
+        time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+        self.txt_Status.append(time_stamp)
         self.txt_Status.append(f"Frequency-domain plot is saved.")
 
 
@@ -785,6 +800,9 @@ class MainWindow(QtWidgets.QMainWindow):
         -------
             None
         """
+        date = datetime.now()
+        time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+        self.txt_Status.append(time_stamp)
         self.txt_Status.append(f"<b>Filter Order :</b> {self.box_FilterOrder.currentText()} is selected.")
     
 
@@ -800,6 +818,9 @@ class MainWindow(QtWidgets.QMainWindow):
         -------
             None
         """
+        date = datetime.now()
+        time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+        self.txt_Status.append(time_stamp)
         self.txt_Status.append(f"<b>Approximation :</b> {self.box_Approx.currentText()} is selected.")
     
 
@@ -817,7 +838,11 @@ class MainWindow(QtWidgets.QMainWindow):
             None
         """
         if self.chkBox_filterEn.isChecked():
+            date = datetime.now()
+            time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+            self.txt_Status.append(time_stamp)
             self.txt_Status.append('<b>Filter enabled...</b>')
+
             self.lbl_FilterType.setEnabled(True)
             self.lbl_Approx.setEnabled(True)
             self.lbl_FilterOrder.setEnabled(True)
@@ -831,7 +856,11 @@ class MainWindow(QtWidgets.QMainWindow):
             self.btn_FilterResponse.setEnabled(True)
 
         else:
+            date = datetime.now()
+            time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+            self.txt_Status.append(time_stamp)
             self.txt_Status.append('<b>Filter disabled...</b>')
+
             self.lbl_FilterType.setEnabled(False)
             self.lbl_Approx.setEnabled(False)
             self.lbl_FilterOrder.setEnabled(False)
@@ -859,13 +888,21 @@ class MainWindow(QtWidgets.QMainWindow):
             None
         """
         if self.chkBox_windowEn.isChecked():
+            date = datetime.now()
+            time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+            self.txt_Status.append(time_stamp)
             self.txt_Status.append('<b>Windowing enabled...</b>')
+
             self.lbl_Window.setEnabled(True)
             self.box_Window.setEnabled(True)
             self.btn_WindowResponse.setEnabled(True)
         
         else:
+            date = datetime.now()
+            time_stamp = '\n[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']'
+            self.txt_Status.append(time_stamp)
             self.txt_Status.append('<b>Windowing disabled...</b>')
+            
             self.lbl_Window.setEnabled(False)
             self.box_Window.setEnabled(False)
             self.btn_WindowResponse.setEnabled(False)

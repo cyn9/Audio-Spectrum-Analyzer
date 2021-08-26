@@ -44,6 +44,10 @@ def saveLog(statusText, fname):
 
 
     f = open(filename_log, "x")
+
+    date = datetime.now()
+    time_stamp = '[' + date.strftime('%Y-%m-%d, %H:%M:%S') + ']\n\n'
+    f.write(time_stamp)
     f.write(statusText.toPlainText())
 
     print(f"Log file written to {filename_log}.")

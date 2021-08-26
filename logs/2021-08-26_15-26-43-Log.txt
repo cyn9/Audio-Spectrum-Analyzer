@@ -1,0 +1,73 @@
+[2021-08-26, 15:26:43]
+
+Audio System Info:
+Version: 1246976.
+Number of Host APIs: 1.
+Number of Devices  : 2.
+Host API Info:
+('index', 0): ('index', 0)
+('structVersion', 1): ('structVersion', 1)
+('type', 5): ('type', 5)
+('name', 'Core Audio'): ('name', 'Core Audio')
+('deviceCount', 2): ('deviceCount', 2)
+('defaultInputDevice', 0): ('defaultInputDevice', 0)
+('defaultOutputDevice', 1): ('defaultOutputDevice', 1)
+--------------------------
+   index: 0
+   structVersion: 2
+   name: MacBook Pro Microphone
+   hostApi: 0 (Core Audio)
+   maxInputChannels: 1
+   maxOutputChannels: 0
+   defaultLowInputLatency: 0.04454166666666667
+   defaultLowOutputLatency: 0.01
+   defaultHighInputLatency: 0.053875
+   defaultHighOutputLatency: 0.1
+   defaultSampleRate: 48000.0
+  Input rates: {inputSupportedRates}
+   index: 1
+   structVersion: 2
+   name: MacBook Pro Speakers
+   hostApi: 0 (Core Audio)
+   maxInputChannels: 0
+   maxOutputChannels: 2
+   defaultLowInputLatency: 0.01
+   defaultLowOutputLatency: 0.00925
+   defaultHighInputLatency: 0.1
+   defaultHighOutputLatency: 0.018583333333333334
+   defaultSampleRate: 48000.0
+  Output rates: {outputSupportedRates}
+
+Default Devices:
+
+Default device index = 0
+   {name}: {value}
+--------------------------
+Default Output Device: 1
+  index: 1
+  structVersion: 2
+  name: MacBook Pro Speakers
+  hostApi: 0 (Core Audio)
+  maxInputChannels: 0
+  maxOutputChannels: 2
+  defaultLowInputLatency: 0.01
+  defaultLowOutputLatency: 0.00925
+  defaultHighInputLatency: 0.1
+  defaultHighOutputLatency: 0.018583333333333334
+  defaultSampleRate: 48000.0
+--------------------------------
+
+[2021-08-26, 15:26:29]
+Windowing enabled...
+
+[2021-08-26, 15:26:29]
+Windowing disabled...
+
+[2021-08-26, 15:26:32]
+Approximation : Bessel is selected.
+
+[2021-08-26, 15:26:41]
+Windowing enabled...
+
+[2021-08-26, 15:26:41]
+Windowing disabled...
