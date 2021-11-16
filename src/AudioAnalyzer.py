@@ -1,5 +1,5 @@
 '''
-Following features will be implemented:
+Following features might be implemented:
 (1) Dynamic range compression
 (2) Limiter
 (3) Noise reduction
@@ -23,6 +23,7 @@ from progress.bar import ChargingBar
 
 from tkinter import TclError
 from datetime import datetime
+from time import time
 
 from HelpWindow import HelpWindow
 from Filtering import *
@@ -39,10 +40,8 @@ import matplotlib.pyplot as plt
 import pyaudio
 import struct
 import sys
-import time
 
 class MainWindow(QtWidgets.QMainWindow):
-    # def __init__(self, *args, **kwargs):
     def __init__(self, cmd_args, *args, **kwargs):
         """
         Constructs all the necessary attributes for MainWindow object for
@@ -137,7 +136,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 bar.next()
 
             # Load the UI Page
-            uic.loadUi("./ui/MainWindow.ui", self)
+            self.cwdir = os.getcwd()
+            uic.loadUi(self.cwdir + "/ui/MainWindow.ui", self)
             self.setFixedSize(SCR_WIDTH, SCR_HEIGHT)
             self.setFont(QtGui.QFont('Arial'))
 
@@ -290,7 +290,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 bar.next()
 
             # Get audio device and PyAudio related info
-            getDeviceInfo(self.txt_Status, self.p)
+            # getDeviceInfo(self.txt_Status, self.p)
 
             self.chosen_device_index = -1
             for x in range(0, self.p.get_device_count()):

@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import QStyle
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 
+import os
+
 from pyqtgraph.Qt import QtGui
 
 import pyperclip
@@ -26,7 +28,8 @@ class HelpWindow(QtWidgets.QMainWindow):
         HELP_WIN_SCR_WIDTH = 630
         HELP_WIN_SCR_HEIGHT = 664
 
-        uic.loadUi('./ui/HelpWin.ui', self)
+        self.cwdir = os.getcwd()
+        uic.loadUi(self.cwdir + '/ui/HelpWin.ui', self)
         self.setFixedSize(HELP_WIN_SCR_WIDTH, HELP_WIN_SCR_HEIGHT)
 
         # Button onClick event for close
