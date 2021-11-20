@@ -17,3 +17,60 @@ uname: uname_result(system='Darwin', node='Cihans-MacBook-Pro.local', release='2
 Architecture: ('64bit', '')
 Machine: x86_64
 
+
+## Python Check ##
+Python version: 3.9.5
+Python branch: v3.9.5
+Python build version: ('v3.9.5:0a7dcbdb13', 'May  3 2021 13:17:02')
+Python compiler version: Clang 6.0 (clang-600.0.57)
+Python implementation: CPython
+
+
+## Platform Check ##
+Operation System (OS): Darwin
+OS Kernel Version: Darwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1/RELEASE_X86_64
+OS Release Version: 21.1.0
+OS Platform: macOS-10.16-x86_64-i386-64bit
+MAC Version: ('10.16', ('', '', ''), 'x86_64')
+uname: uname_result(system='Darwin', node='Cihans-MacBook-Pro.local', release='21.1.0', version='Darwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1/RELEASE_X86_64', machine='x86_64')
+Architecture: ('64bit', '')
+Machine: x86_64
+
+
+## Python Check ##
+Python version: 3.9.5
+Python branch: v3.9.5
+Python build version: ('v3.9.5:0a7dcbdb13', 'May  3 2021 13:17:02')
+Python compiler version: Clang 6.0 (clang-600.0.57)
+Python implementation: CPython
+
+
+## Platform Check ##
+Operation System (OS): Darwin
+OS Kernel Version: Darwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1/RELEASE_X86_64
+OS Release Version: 21.1.0
+OS Platform: macOS-10.16-x86_64-i386-64bit
+MAC Version: ('10.16', ('', '', ''), 'x86_64')
+uname: uname_result(system='Darwin', node='Cihans-MacBook-Pro.local', release='21.1.0', version='Darwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1/RELEASE_X86_64', machine='x86_64')
+Architecture: ('64bit', '')
+Machine: x86_64
+
+
+## Python Check ##
+Python version: 3.9.5
+Python branch: v3.9.5
+Python build version: ('v3.9.5:0a7dcbdb13', 'May  3 2021 13:17:02')
+Python compiler version: Clang 6.0 (clang-600.0.57)
+Python implementation: CPython
+
+
+## Platform Check ##
+Operation System (OS): Darwin
+OS Kernel Version: Darwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1/RELEASE_X86_64
+OS Release Version: 21.1.0
+OS Platform: macOS-10.16-x86_64-i386-64bit
+MAC Version: ('10.16', ('', '', ''), 'x86_64')
+uname: uname_result(system='Darwin', node='Cihans-MacBook-Pro.local', release='21.1.0', version='Darwin Kernel Version 21.1.0: Wed Oct 13 17:33:23 PDT 2021; root:xnu-8019.41.5~1/RELEASE_X86_64', machine='x86_64')
+Architecture: ('64bit', '')
+Machine: x86_64
+
