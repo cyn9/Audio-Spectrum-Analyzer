@@ -4,6 +4,7 @@ Following features might be implemented:
 (2) Limiter
 (3) Noise reduction
 '''
+import os.path
 
 from pyqtgraph.Qt import QtGui
 from pyqtgraph.Qt import QtCore
@@ -137,7 +138,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # Load the UI Page
             self.cwdir = os.getcwd()
-            uic.loadUi(self.cwdir + "/ui/MainWindow.ui", self)
+            uic.loadUi(os.path.join(os.path.dirname(self.cwdir), 'ui', 'MainWindow.ui'), self)
             self.setFixedSize(SCR_WIDTH, SCR_HEIGHT)
             self.setFont(QtGui.QFont('Arial'))
 
