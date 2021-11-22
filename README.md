@@ -45,6 +45,7 @@ The bottom section comprises of options that can be set in order to digitally pr
 The audio analyzer has various functionalities that are described as follows:
 
 **1. Filtering:** It is enabled in default. There are two types available: highpass and bandpass where the former filters the low frequency components while passing the high frequency components, and the latter only passes certain band of frequencies. These frequencies are defined with Cutoff Frequency option that can be set by the user. It is suggested to use Bandpass Butterworth filter with a filter order of 3 or 5.
+
 **2. Windowing:** The usage of windowing is optional. The windowing in time-domain can however be very useful in suppressing the residual frequency components that may emerge far away from the frequency band of interest. For example, user can be interested in analyzing low frequencies, say around a couple hundreds of Hz, while noise-like spectral components can arise around a few MHz which in turn can be quite effectively smoothed out using windowing. It is suggested to use Hann window; however, the effect of other window functions can be observed and therefore used.
 
 Comparison of different windowing functions:
@@ -59,6 +60,9 @@ Comparison of different windowing functions:
 | Kaiser | Good | Good | Fair |
 
 **3. Status Bar:** Status bar will show the changes made in Filtering or Windowing options.
+
 **4. Frequency Status Bar:** It is the status bar on the right that shows the frequency point at which the highest peak occured in the Spectrum plot.
+
 **5. Response Buttons:** Filter and window function frequency responses can be plotted. It is a nice way to visualize frequency response of filters and window functions as the information regarding the passband and stopband responses can be used to tweak the cutoff frequencies so that the user can attain an ideal output.
+
 **6. Snapshot:** The Snapshot button can take instantaneous output of the Waveform and Spectrum plots. The two resulting images obtained for time- and frequency-domain responses are recorded in the same directory of the program file.
