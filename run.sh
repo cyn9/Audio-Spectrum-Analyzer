@@ -65,4 +65,5 @@ python3 info/platform_test.py 2>&1 >> ${OUTPUT_FILE}
 echo 'Platform test complete.'
 echo ''
 
-python3 src/run.py "$@"
+cd src
+python3 run.py "$@"
