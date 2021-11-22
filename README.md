@@ -40,7 +40,7 @@ python run.py
 ## Audio Analyzer Help
 This section can be found inside the program under the menubar Help > Audio Analyzer Help. The top section of the Audio Analyzer is divided into two sections: Waveform and Spectrum. Waveform shows the instantaneous audio signal in time-domain. Spectrum shows the FFT of the real-time audio signal that is the spectrum of the wave in frequency-domain. Signal amplitude is shown in Waveform while Spectrum shows the frequency components of the real-time audio signal captured by the default microphone of the operating system. Currently, there is no option available for selecting the microphone. The program will automatically detect the microphone, and if there is no microphone detected, there will be an error message displayed on the command line such as: ```No audio input device is found.```
 
-The bottom section comprises of very beneficial options that can be set in order to digitally process the real-time audio signal in different ways. One can play with the options to observe changes in Spectrum where the filtering or windowing results can be seen more explicitly.
+The bottom section comprises of options that can be set in order to digitally process the real-time audio signal in different ways. One can play with the options to observe changes in Spectrum where the filtering or windowing results can be seen more explicitly.
 
 The audio analyzer has various functionalities that are described as follows:
 
