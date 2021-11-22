@@ -29,7 +29,7 @@ class HelpWindow(QtWidgets.QMainWindow):
         HELP_WIN_SCR_HEIGHT = 664
 
         self.cwdir = os.getcwd()
-        uic.loadUi(self.cwdir + '/ui/HelpWin.ui', self)
+        uic.loadUi(os.path.join(os.path.dirname(self.cwdir), 'ui', 'HelpWin.ui'), self)
         self.setFixedSize(HELP_WIN_SCR_WIDTH, HELP_WIN_SCR_HEIGHT)
 
         # Button onClick event for close
