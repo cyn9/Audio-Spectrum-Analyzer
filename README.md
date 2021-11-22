@@ -1,6 +1,8 @@
 ## Audio Spectrum Analyzer
 This software is an easy-to-use, lightweight and real-time audio signal analyzer that shows time-domain raw signal and its frequency spectrum.
 
+**Note:** This program is a part of a research I have been working on. Currently, I have no time to work on bugs or any improvements. Please feel free to report any issues/bugs/suggestions.<br>
+
 ![screenshot](/assets/example.png)
 
 ## Key Features
