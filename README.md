@@ -49,8 +49,8 @@ The audio analyzer has various functionalities that are described as follows:
 
 Comparison of different windowing functions:
 
-| Window Function	|	Spectral Leakage	 | Amplitude Accuracy  | FrequencyResolution |
-| --- | --- | --- | --- |
+| Window<br>Function | Spectral<br>Leakage | Amplitude<br>Accuracy | Frequency<br>Resolution |
+| :---: | :---: | :---: | :---: |
 | Blackman | Best | Good | Fair |
 | Flattop | Good | Best | Poor |
 | Rectangle (none) | Poor | Poor | Best |
