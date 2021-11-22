@@ -38,18 +38,18 @@ python run.py
 ```
 
 ## Audio Analyzer Help
-This section can be found inside the program under the menubar Help > Audio Analyzer Help. The top section of the Audio Analyzer is divided into two sections: Waveform and Spectrum. Waveform shows the instantaneous audio signal in time-domain. Spectrum shows the FFT of the real-time audio signal that is the spectrum of the wave in frequency-domain. Signal amplitude is shown in Waveform while Spectrum shows the frequency components of the real-time audio signal captured by the default microphone of the operating system.
+This section can be found inside the program under the menubar Help > Audio Analyzer Help. The top section of the Audio Analyzer is divided into two sections: Waveform and Spectrum. Waveform shows the instantaneous audio signal in time-domain. Spectrum shows the FFT of the real-time audio signal that is the spectrum of the wave in frequency-domain. Signal amplitude is shown in Waveform while Spectrum shows the frequency components of the real-time audio signal captured by the default microphone of the operating system. Currently, there is no option available for selecting the microphone. The program will automatically detect the microphone, and if there is no microphone detected, there will be an error message displayed on the command line such as: ```No audio input device is found.```
 
 The bottom section comprises of very beneficial options that can be set in order to digitally process the real-time audio signal in different ways. One can play with the options to observe changes in Spectrum where the filtering or windowing results can be seen more explicitly.
 
 The audio analyzer has various functionalities that are described as follows:
 
-1. **Filtering:** It is enabled in default. There are two types available: highpass and bandpass where the former filters the low frequency components while passing the high frequency components, and the latter only passes certain band of frequencies. These frequencies are defined with Cutoff Frequency option that can be set by the user. It is suggested to use Bandpass Butterworth filter with a filter order of 3 or 5.
-2. **Windowing:** The usage of windowing is optional. The windowing in time-domain can however be very useful in suppressing the residual frequency components that may emerge far away from the frequency band of interest. For example, user can be interested in analyzing low frequencies, say around a couple hundreds of Hz, while noise-like spectral components can arise around a few MHz which in turn can be quite effectively smoothed out using windowing. It is suggested to use Hann window; however, the effect of other window functions can be observed and therefore used.
+**1. Filtering:** It is enabled in default. There are two types available: highpass and bandpass where the former filters the low frequency components while passing the high frequency components, and the latter only passes certain band of frequencies. These frequencies are defined with Cutoff Frequency option that can be set by the user. It is suggested to use Bandpass Butterworth filter with a filter order of 3 or 5.
+**2. Windowing:** The usage of windowing is optional. The windowing in time-domain can however be very useful in suppressing the residual frequency components that may emerge far away from the frequency band of interest. For example, user can be interested in analyzing low frequencies, say around a couple hundreds of Hz, while noise-like spectral components can arise around a few MHz which in turn can be quite effectively smoothed out using windowing. It is suggested to use Hann window; however, the effect of other window functions can be observed and therefore used.
 
 Comparison of different windowing functions:
 
-| Window<br>Function | Spectral<br>Leakage | Amplitude<br>Accuracy | Frequency<br>Resolution |
+| **Window**<br>**Function** | **Spectral**<br>**Leakage** | **Amplitude**<br>**Accuracy** | **Frequency**<br>**Resolution** |
 | :---: | :---: | :---: | :---: |
 | Blackman | Best | Good | Fair |
 | Flattop | Good | Best | Poor |
@@ -58,7 +58,7 @@ Comparison of different windowing functions:
 | Hamming | Fair | Fair | Good |
 | Kaiser | Good | Good | Fair |
 
-3. **Status Bar:** Status bar will show the changes made in Filtering or Windowing options.
-4. **Frequency Status Bar:** It is the status bar on the right that shows the frequency point at which the highest peak occured in the Spectrum plot.
-5. **Response Buttons:** Filter and window function frequency responses can be plotted. It is a nice way to visualize frequency response of filters and window functions as the information regarding the passband and stopband responses can be used to tweak the cutoff frequencies so that the user can attain an ideal output.
-6. **Snapshot:** The Snapshot button can take instantaneous output of the Waveform and Spectrum plots. The two resulting images obtained for time- and frequency-domain responses are recorded in the same directory of the program file.
+**3. Status Bar:** Status bar will show the changes made in Filtering or Windowing options.
+**4. Frequency Status Bar:** It is the status bar on the right that shows the frequency point at which the highest peak occured in the Spectrum plot.
+**5. Response Buttons:** Filter and window function frequency responses can be plotted. It is a nice way to visualize frequency response of filters and window functions as the information regarding the passband and stopband responses can be used to tweak the cutoff frequencies so that the user can attain an ideal output.
+**6. Snapshot:** The Snapshot button can take instantaneous output of the Waveform and Spectrum plots. The two resulting images obtained for time- and frequency-domain responses are recorded in the same directory of the program file.
