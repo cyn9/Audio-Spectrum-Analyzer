@@ -1,7 +1,7 @@
 ## Audio Spectrum Analyzer
 This software is an easy-to-use, lightweight and real-time audio signal analyzer that shows time-domain raw signal and its frequency spectrum.
 
-**Note:** This program is a part of a research I have been working on. Currently, I have no time to work on bugs or any improvements. Please feel free to report any issues/bugs/suggestions.<br>
+**Note:** This code has been developed as a part of research project. Currently, I have no time to work on bugs or any improvements. Please feel free to report any issues/bugs/suggestions.
 
 ![screenshot](/assets/example.png)
 
@@ -13,6 +13,9 @@ This software is an easy-to-use, lightweight and real-time audio signal analyzer
 * Various time-domain windowing functions.
 * Cross platform
   - Tested on Windows and MacOS.
+
+## Requirements
+[![PyQt5](https://img.shields.io/badge/PyQt5-%3E5.15.4-C00)](https://pypi.org/project/PyQt5/)
 
 ## Usage
 
