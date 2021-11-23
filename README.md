@@ -15,7 +15,22 @@ This software is an easy-to-use, lightweight and real-time audio signal analyzer
   - Tested on Windows and MacOS.
 
 ## Requirements
+
 [![PyQt5](https://img.shields.io/badge/PyQt5-%3E5.15.4-C00)](https://pypi.org/project/PyQt5/)
+
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-%3E3.4.2-yellow)](https://matplotlib.org/)
+
+[![SciPy](https://img.shields.io/badge/SciPy-%3E1.6-orange)](https://scipy.org/)
+
+[![NumPy](https://img.shields.io/badge/NumPy-%3E1.20.3-blueviolet)](https://numpy.org/)
+
+[![PyAudio](https://img.shields.io/badge/PyAudio-%3E0.2.11-red)](https://pypi.org/project/PyAudio/)
+
+[![PyQtGraph](https://img.shields.io/badge/PyQtGraph-%3E0.2.1-brightgreen)](https://www.pyqtgraph.org/)
+
+[![Progress](https://img.shields.io/badge/Progress-%3E1.6-blue)](https://pypi.org/project/progress/)
+
+[![pyperclip](https://img.shields.io/badge/pyperclip-%3E1.8.2-critical)](https://pypi.org/project/pyperclip/)
 
 ## Usage
 
