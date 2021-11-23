@@ -16,6 +16,8 @@ This software is an easy-to-use, lightweight and real-time audio signal analyzer
 
 ## Requirements
 
+[![Python](https://img.shields.io/badge/Python-%3E3.9.2-important)](https://www.python.org/)
+
 [![PyQt5](https://img.shields.io/badge/PyQt5-%3E5.15.4-C00)](https://pypi.org/project/PyQt5/)
 
 [![Matplotlib](https://img.shields.io/badge/Matplotlib-%3E3.4.2-yellow)](https://matplotlib.org/)
